@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://enginex.solutions/sitemap.xml

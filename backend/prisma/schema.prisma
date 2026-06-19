@@ -1,0 +1,252 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid()) @db.Uuid
+  email       String   @unique
+  password    String
+  name        String
+  role        Role     @default(ADMIN)
+  avatar      String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  blogs       Blog[]
+  projects    Project[]
+  testimonials Testimonial[]
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+model Project {
+  id            String   @id @default(uuid()) @db.Uuid
+  title         String
+  slug          String   @unique
+  description   String
+  content       String?
+  category      String
+  technologies  String[]
+  clientName    String   @map("client_name")
+  completionDate DateTime @map("completion_date")
+  projectUrl    String?  @map("project_url")
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  images        ProjectImage[]
+  authorId      String   @map("author_id") @db.Uuid
+  author        User     @relation(fields: [authorId], references: [id])
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  seoTitle      String?  @map("seo_title")
+  seoDesc       String?  @map("seo_desc")
+
+  @@map("projects")
+}
+
+model ProjectImage {
+  id        String   @id @default(uuid()) @db.Uuid
+  url       String
+  alt       String?
+  projectId String   @map("project_id") @db.Uuid
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("project_images")
+}
+
+model Blog {
+  id          String       @id @default(uuid()) @db.Uuid
+  title       String
+  slug        String       @unique
+  content     String
+  excerpt     String?
+  category    String
+  tags        String[]
+  coverImage  String?      @map("cover_image")
+  authorId    String       @map("author_id") @db.Uuid
+  author      User         @relation(fields: [authorId], references: [id])
+  published   Boolean      @default(false)
+  publishedAt DateTime?    @map("published_at")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  seoTitle    String?      @map("seo_title")
+  seoDesc     String?      @map("seo_desc")
+  readingTime Int?         @map("reading_time")
+  comments    BlogComment[]
+
+  @@map("blogs")
+}
+
+model BlogComment {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  email     String
+  content   String
+  blogId    String   @map("blog_id") @db.Uuid
+  blog      Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("blog_comments")
+}
+
+model Lead {
+  id          String       @id @default(uuid()) @db.Uuid
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  budget      String?
+  projectType String?      @map("project_type")
+  message     String?
+  source      String?
+  status      LeadStatus   @default(NEW)
+  priority    LeadPriority @default(MEDIUM)
+  notes       String?
+  converted   Boolean      @default(false)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("leads")
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  PROPOSAL_SENT
+  WON
+  LOST
+}
+
+enum LeadPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model ContactMessage {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  subject     String?
+  message     String
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+model Testimonial {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  photo     String?
+  designation String?
+  company   String?
+  content   String
+  rating    Int      @default(5)
+  featured  Boolean  @default(false)
+  authorId  String   @map("author_id") @db.Uuid
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("testimonials")
+}
+
+model JobListing {
+  id          String           @id @default(uuid()) @db.Uuid
+  title       String
+  slug        String           @unique
+  location    String
+  type        JobType          @default(FULL_TIME)
+  department  String?
+  description String
+  requirements String?
+  salaryMin   Float?           @map("salary_min")
+  salaryMax   Float?           @map("salary_max")
+  currency    String           @default("USD")
+  active      Boolean          @default(true)
+  createdAt   DateTime         @default(now()) @map("created_at")
+  updatedAt   DateTime         @updatedAt @map("updated_at")
+  applications Application[]
+
+  @@map("job_listings")
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  FREELANCE
+  INTERNSHIP
+}
+
+model Application {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  email       String
+  phone       String?
+  resumeUrl   String?  @map("resume_url")
+  coverLetter String?  @map("cover_letter")
+  status      AppStatus @default(PENDING)
+  jobId       String   @map("job_id") @db.Uuid
+  job         JobListing @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("applications")
+}
+
+enum AppStatus {
+  PENDING
+  REVIEWED
+  SHORTLISTED
+  INTERVIEWED
+  OFFERED
+  REJECTED
+}
+
+model Service {
+  id          String   @id @default(uuid()) @db.Uuid
+  title       String
+  slug        String   @unique
+  description String
+  icon        String?
+  features    String[]
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("services")
+}
+
+model Category {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  type      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("categories")
+}
+
+model Setting {
+  id    String @id @default(uuid()) @db.Uuid
+  key   String @unique
+  value String
+
+  @@map("settings")
+}
