@@ -56,7 +56,7 @@ export default function AdminLoginPage() {
 
           <div>
             <label className="block text-sm text-muted-foreground mb-2">Email</label>
-            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="admin@enginex.solutions" required />
+            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
           </div>
 
           <div>
@@ -73,9 +73,6 @@ export default function AdminLoginPage() {
             {loading ? 'Signing in...' : <>Sign In <LogIn className="w-4 h-4" /></>}
           </Button>
 
-          <p className="text-xs text-muted-foreground text-center">
-            Default: admin@enginex.solutions / admin123
-          </p>
         </form>
       </motion.div>
     </div>
