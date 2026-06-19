@@ -6,6 +6,7 @@ import AboutSection from '@/components/AboutSection'
 import ServicesSection from '@/components/ServicesSection'
 import PortfolioSection from '@/components/PortfolioSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
+import TrustSection from '@/components/TrustSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 
@@ -18,6 +19,7 @@ export default function HomePage() {
       <ServicesSection />
       <PortfolioSection />
       <TestimonialsSection />
+      <TrustSection />
       <ContactSection />
       <Footer />
     </main>
