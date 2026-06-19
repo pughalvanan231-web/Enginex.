@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Shield, Eye, Target, Heart } from 'lucide-react'
+import { Shield, Eye, Target, Heart, Globe } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 
 const values = [
@@ -63,17 +63,24 @@ export default function AboutSection() {
 
         <div className="grid md:grid-cols-4 gap-6 mb-16">
           {[
-            { value: 28, suffix: '+', label: 'PROJECTS DELIVERED' },
-            { value: 4, suffix: '+', label: 'EXPERT PROFESSIONALS' },
-            { value: 20, suffix: '+', label: 'COUNTRIES SERVED' },
-            { value: 2, suffix: '+', label: 'CLIENTS SERVED' },
+            { type: 'stat', value: 28, suffix: '+', label: 'PROJECTS DELIVERED' },
+            { type: 'stat', value: 4, suffix: '+', label: 'EXPERT PROFESSIONALS' },
+            { type: 'message', text: 'DELIVERING ALL OVER THE WORLD' },
+            { type: 'stat', value: 2, suffix: '+', label: 'CLIENTS SERVED' },
           ].map((stat, i) => (
-            <motion.div key={stat.label} {...fadeUp(i * 0.08)} className="text-center p-6 rounded-xl bg-white border border-[#F0F0F0] hover:border-[#FF8C38]/20 hover:shadow-lg hover:shadow-[#FF8C38]/05 transition-all duration-500">
-              <div className="text-4xl md:text-5xl font-bold text-[#FF8C38] mb-1">
-                <Counter value={stat.value} />{stat.suffix}
-              </div>
-              <div className="text-[11px] font-semibold text-[#1A1A1A] tracking-[0.08em] uppercase">{stat.label}</div>
-            </motion.div>
+            stat.type === 'message' ? (
+              <motion.div key={stat.text} {...fadeUp(i * 0.08)} className="text-center p-6 rounded-xl bg-gradient-to-br from-[#FF8C38]/5 to-transparent border border-[#FF8C38]/20 hover:shadow-lg hover:shadow-[#FF8C38]/10 transition-all duration-500 flex flex-col items-center justify-center">
+                <Globe className="w-10 h-10 text-[#FF8C38] mb-3" />
+                <div className="text-sm text-gray-500 font-semibold tracking-wider leading-relaxed">{stat.text}</div>
+              </motion.div>
+            ) : (
+              <motion.div key={stat.label} {...fadeUp(i * 0.08)} className="text-center p-6 rounded-xl bg-white border border-[#F0F0F0] hover:border-[#FF8C38]/20 hover:shadow-lg hover:shadow-[#FF8C38]/05 transition-all duration-500">
+                <div className="text-4xl md:text-5xl font-bold text-[#FF8C38] mb-1">
+                  <Counter value={stat.value as number} />{stat.suffix}
+                </div>
+                <div className="text-sm text-gray-500 font-medium tracking-wider">{stat.label}</div>
+              </motion.div>
+            )
           ))}
         </div>
 

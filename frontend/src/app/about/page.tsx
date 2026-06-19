@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, Eye, Target, Heart, ArrowRight } from 'lucide-react'
+import { Shield, Eye, Target, Heart, ArrowRight, Globe } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -16,10 +16,10 @@ const values = [
 ]
 
 const stats = [
-  { value: '50+', label: 'Projects Delivered' },
-  { value: '20+', label: 'Happy Clients' },
-  { value: '5+', label: 'Years Experience' },
-  { value: '98%', label: 'Client Satisfaction' },
+  { type: 'stat', value: '50+', label: 'Projects Delivered' },
+  { type: 'stat', value: '5+', label: 'Years Experience' },
+  { type: 'message', text: 'DELIVERING ALL OVER THE WORLD' },
+  { type: 'stat', value: '98%', label: 'Client Satisfaction' },
 ]
 
 const team = [
@@ -49,17 +49,31 @@ export default function AboutPage() {
 
           <div className="grid md:grid-cols-4 gap-6 mb-24">
             {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="card-subtle p-8 text-center"
-              >
-                <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
+              stat.type === 'message' ? (
+                <motion.div
+                  key={stat.text}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="card-subtle p-8 text-center flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 to-transparent border border-primary/20"
+                >
+                  <Globe className="w-10 h-10 text-primary mb-3" />
+                  <div className="text-sm text-muted-foreground font-semibold tracking-wider leading-relaxed">{stat.text}</div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="card-subtle p-8 text-center"
+                >
+                  <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </motion.div>
+              )
             ))}
           </div>
 
