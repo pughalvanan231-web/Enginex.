@@ -64,8 +64,10 @@ app.use((_req, res) => {
   res.status(404).json({ error: 'Route not found' })
 })
 
-app.listen(PORT, () => {
-  console.log(`EngineX API running on port ${PORT}`)
-})
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`EngineX API running on port ${PORT}`)
+  })
+}
 
 export default app
