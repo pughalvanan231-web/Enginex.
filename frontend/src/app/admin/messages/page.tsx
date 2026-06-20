@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Trash2, Mail, MailOpen } from 'lucide-react'
-import AdminLayout from '../layout'
 import api from '@/lib/api'
 
 export default function AdminMessagesPage() {
@@ -38,7 +37,7 @@ export default function AdminMessagesPage() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">Messages</h1>
         <p className="text-muted-foreground text-sm mt-1">Contact form submissions</p>
@@ -95,6 +94,6 @@ export default function AdminMessagesPage() {
           </div>
         )}
       </div>
-    </AdminLayout>
+    </>
   )
 }

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import AdminLayout from '../layout'
 import api from '@/lib/api'
 
 export default function AdminApplicationsPage() {
@@ -34,7 +33,7 @@ export default function AdminApplicationsPage() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">Applications</h1>
         <p className="text-muted-foreground text-sm mt-1">Review job applications</p>
@@ -94,6 +93,6 @@ export default function AdminApplicationsPage() {
           </table>
         </div>
       )}
-    </AdminLayout>
+    </>
   )
 }

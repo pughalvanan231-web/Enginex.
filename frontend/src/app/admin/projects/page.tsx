@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Plus, Edit, Trash2, ExternalLink } from 'lucide-react'
-import AdminLayout from '../layout'
 import { Button } from '@/components/ui/button'
 import api from '@/lib/api'
 
@@ -31,7 +30,7 @@ export default function AdminProjectsPage() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Projects</h1>
@@ -96,6 +95,6 @@ export default function AdminProjectsPage() {
           </div>
         </div>
       )}
-    </AdminLayout>
+    </>
   )
 }

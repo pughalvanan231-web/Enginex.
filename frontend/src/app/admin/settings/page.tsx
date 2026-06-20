@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Save } from 'lucide-react'
-import AdminLayout from '../layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import api from '@/lib/api'
@@ -40,16 +39,14 @@ export default function AdminSettingsPage() {
 
   if (loading) {
     return (
-      <AdminLayout>
-        <div className="flex items-center justify-center h-64">
+      <div className="flex items-center justify-center h-64">
           <div className="w-8 h-8 border-2 border-[#FF8C38] border-t-transparent rounded-full animate-spin" />
         </div>
-      </AdminLayout>
     )
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">Settings</h1>
         <p className="text-muted-foreground text-sm mt-1">Manage your site settings</p>
@@ -76,6 +73,6 @@ export default function AdminSettingsPage() {
           <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Settings'}
         </Button>
       </form>
-    </AdminLayout>
+    </>
   )
 }

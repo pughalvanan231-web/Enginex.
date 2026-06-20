@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Trash2, Star } from 'lucide-react'
-import AdminLayout from '../layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -45,7 +44,7 @@ export default function AdminTestimonialsPage() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Testimonials</h1>
@@ -97,6 +96,6 @@ export default function AdminTestimonialsPage() {
           {testimonials.length === 0 && <div className="col-span-2 text-center py-12 text-muted-foreground">No testimonials yet.</div>}
         </div>
       )}
-    </AdminLayout>
+    </>
   )
 }

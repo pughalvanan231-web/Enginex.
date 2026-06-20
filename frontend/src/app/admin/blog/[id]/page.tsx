@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { ArrowLeft, Save } from 'lucide-react'
 import Link from 'next/link'
-import AdminLayout from '../../layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -63,11 +62,11 @@ export default function AdminBlogFormPage() {
   }
 
   if (loading) {
-    return <AdminLayout><div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#FF8C38] border-t-transparent rounded-full animate-spin" /></div></AdminLayout>
+    return <div className="flex items-center justify-center h-64"><div className="w-8 h-8 border-2 border-[#FF8C38] border-t-transparent rounded-full animate-spin" /></div>
   }
 
   return (
-    <AdminLayout>
+    <>
       <Link href="/admin/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6">
         <ArrowLeft className="w-4 h-4" /> Back to Blog
       </Link>
@@ -92,6 +91,6 @@ export default function AdminBlogFormPage() {
           <Save className="w-4 h-4" /> {saving ? 'Saving...' : 'Save Post'}
         </Button>
       </form>
-    </AdminLayout>
+    </>
   )
 }

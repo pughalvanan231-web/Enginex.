@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Save, GripVertical } from 'lucide-react'
-import AdminLayout from '../layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -56,7 +55,7 @@ export default function AdminServicesPage() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-foreground">Services</h1>
         <p className="text-muted-foreground text-sm mt-1">Manage your service offerings</p>
@@ -115,6 +114,6 @@ export default function AdminServicesPage() {
           </form>
         )}
       </div>
-    </AdminLayout>
+    </>
   )
 }

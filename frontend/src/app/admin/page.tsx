@@ -4,8 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { LayoutDashboard, Briefcase, FileText, Users, Star, MessageSquare, Settings, LogOut, TrendingUp, Mail, Eye } from 'lucide-react'
-import AdminLayout from './layout'
-
 export default function AdminDashboardPage() {
   const router = useRouter()
   const [stats, setStats] = useState<any>(null)
@@ -27,11 +25,9 @@ export default function AdminDashboardPage() {
 
   if (!stats) {
     return (
-      <AdminLayout>
-        <div className="flex items-center justify-center h-64">
+      <div className="flex items-center justify-center h-64">
           <div className="w-8 h-8 border-2 border-[#FF8C38] border-t-transparent rounded-full animate-spin" />
         </div>
-      </AdminLayout>
     )
   }
 
@@ -47,7 +43,7 @@ export default function AdminDashboardPage() {
   ]
 
   return (
-    <AdminLayout>
+    <>
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground mb-2">Welcome back{user ? `, ${user.name}` : ''}</h1>
         <p className="text-muted-foreground">Here is what is happening with your platform today.</p>
@@ -119,6 +115,6 @@ export default function AdminDashboardPage() {
           )}
         </div>
       </div>
-    </AdminLayout>
+    </>
   )
 }

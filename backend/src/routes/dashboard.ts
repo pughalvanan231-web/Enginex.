@@ -19,9 +19,9 @@ router.get('/', protect, adminOnly, async (_req: AuthRequest, res: Response) => 
     ])
 
     const monthlyLeads = await prisma.$queryRaw`
-      SELECT DATE_TRUNC('month', created_at) as month, COUNT(*)::int as count
+      SELECT strftime('%Y-%m', created_at) as month, COUNT(*) as count
       FROM leads
-      WHERE created_at >= NOW() - INTERVAL '12 months'
+      WHERE created_at >= datetime('now', '-12 months')
       GROUP BY month ORDER BY month
     `
 
