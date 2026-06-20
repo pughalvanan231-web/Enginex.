@@ -35,7 +35,7 @@ async function seed() {
         slug: services[i].title.toLowerCase().replace(/\s+/g, '-'),
         description: services[i].description,
         icon: services[i].icon,
-        features: JSON.stringify(services[i].features),
+        features: services[i].features,
         order: i + 1,
       },
     })

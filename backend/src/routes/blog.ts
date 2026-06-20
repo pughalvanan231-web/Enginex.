@@ -27,12 +27,7 @@ router.get('/', async (req: Request, res: Response) => {
       prisma.blog.count({ where }),
     ])
 
-    res.json({
-      blogs: blogs.map(b => ({ ...b, tags: JSON.parse(b.tags) })),
-      total,
-      pages: Math.ceil(total / take),
-      page: parseInt(page as string),
-    })
+    res.json({ blogs, total, pages: Math.ceil(total / take), page: parseInt(page as string) })
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -44,7 +39,7 @@ router.get('/all', protect, adminOnly, async (_req: Request, res: Response) => {
       include: { author: { select: { name: true } }, _count: { select: { comments: true } } },
       orderBy: { createdAt: 'desc' },
     })
-    res.json(blogs.map(b => ({ ...b, tags: JSON.parse(b.tags) })))
+    res.json(blogs)
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -80,7 +75,7 @@ router.get('/:slug', async (req: Request, res: Response) => {
       select: { title: true, slug: true, coverImage: true, excerpt: true, publishedAt: true },
     })
 
-    res.json({ ...blog, tags: JSON.parse(blog.tags), related })
+    res.json({ ...blog, related })
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -97,8 +92,7 @@ router.post('/', protect, adminOnly, async (req: AuthRequest, res: Response) => 
 
     const blog = await prisma.blog.create({
       data: {
-        title, slug, content, excerpt, category,
-        tags: tags ? JSON.stringify(tags) : '[]',
+        title, slug, content, excerpt, category, tags: tags || [],
         coverImage, published, seoTitle, seoDesc, readingTime,
         authorId: req.user!.id,
         publishedAt: published ? new Date() : null,
@@ -121,16 +115,14 @@ router.put('/:id', protect, adminOnly, async (req: AuthRequest, res: Response) =
     const blog = await prisma.blog.update({
       where: { id: req.params.id },
       data: {
-        title, content, excerpt, category,
-        tags: tags ? JSON.stringify(tags) : undefined,
-        coverImage,
+        title, content, excerpt, category, tags, coverImage,
         published, seoTitle, seoDesc, readingTime,
         slug: title ? slugify(title, { lower: true, strict: true }) : undefined,
         publishedAt: published ? new Date() : null,
       },
     })
 
-    res.json({ ...blog, tags: JSON.parse(blog.tags) })
+    res.json(blog)
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }

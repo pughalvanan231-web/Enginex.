@@ -30,12 +30,7 @@ router.get('/', async (req: Request, res: Response) => {
       prisma.project.count({ where }),
     ])
 
-    res.json({
-      projects: projects.map(p => ({ ...p, technologies: JSON.parse(p.technologies) })),
-      total,
-      pages: Math.ceil(total / take),
-      page: parseInt(page as string),
-    })
+    res.json({ projects, total, pages: Math.ceil(total / take), page: parseInt(page as string) })
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -47,7 +42,7 @@ router.get('/all', protect, adminOnly, async (req: Request, res: Response) => {
       include: { images: true, author: { select: { name: true } } },
       orderBy: { createdAt: 'desc' },
     })
-    res.json(projects.map(p => ({ ...p, technologies: JSON.parse(p.technologies) })))
+    res.json(projects)
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -72,7 +67,7 @@ router.get('/:slug', async (req: Request, res: Response) => {
       include: { images: true, author: { select: { name: true, avatar: true } } },
     })
     if (!project) return res.status(404).json({ error: 'Project not found' })
-    res.json({ ...project, technologies: JSON.parse(project.technologies) })
+    res.json(project)
   } catch (error) {
     res.status(500).json({ error: 'Server error' })
   }
@@ -89,8 +84,7 @@ router.post('/', protect, adminOnly, async (req: AuthRequest, res: Response) => 
     const project = await prisma.project.create({
       data: {
         title, slug, description, content, category,
-        technologies: technologies ? JSON.stringify(technologies) : '[]',
-        clientName, completionDate: new Date(completionDate),
+        technologies, clientName, completionDate: completionDate ? new Date(completionDate) : new Date(),
         projectUrl, featured: featured || false,
         seoTitle, seoDesc,
         authorId: req.user!.id,
@@ -123,8 +117,7 @@ router.put('/:id', protect, adminOnly, async (req: AuthRequest, res: Response) =
       where: { id: req.params.id },
       data: {
         title, description, content, category,
-        technologies: technologies ? JSON.stringify(technologies) : undefined,
-        clientName,
+        technologies, clientName,
         completionDate: completionDate ? new Date(completionDate) : undefined,
         projectUrl, featured, published, seoTitle, seoDesc,
         slug: title ? slugify(title, { lower: true, strict: true }) : undefined,
@@ -132,7 +125,7 @@ router.put('/:id', protect, adminOnly, async (req: AuthRequest, res: Response) =
       include: { images: true },
     })
 
-    res.json({ ...project, technologies: JSON.parse(project.technologies) })
+    res.json(project)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'Server error' })
