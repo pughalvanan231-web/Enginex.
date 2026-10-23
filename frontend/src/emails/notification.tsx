@@ -86,7 +86,7 @@ export function NotificationEmail({
           </div>
 
           <p style={{ color: "#B0B0B0", fontSize: 12, textAlign: "center", marginTop: 16 }}>
-            EngineX.solution &bull; Delivering measurable business results
+            EngineX Solutions &bull; Delivering measurable business results
           </p>
         </div>
       </body>

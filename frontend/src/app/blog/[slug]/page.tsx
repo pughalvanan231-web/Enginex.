@@ -115,7 +115,7 @@ export default function BlogDetailPage() {
           </motion.div>
 
           <div className="mt-16 pt-10 border-t border-border">
-            <h3 className="text-xl font-bold text-foreground mb-6">Comments ({post.comments.length})</h3>
+            <h2 className="text-xl font-bold text-foreground mb-6">Comments ({post.comments.length})</h2>
             {post.comments.length === 0 ? (
               <p className="text-muted-foreground mb-8">No comments yet. Be the first to share your thoughts!</p>
             ) : (
@@ -138,7 +138,7 @@ export default function BlogDetailPage() {
               </div>
             ) : (
               <form onSubmit={submitComment} className="card-subtle p-6 space-y-4">
-                <h4 className="text-foreground font-medium">Leave a Comment</h4>
+                <h3 className="text-lg font-medium text-foreground">Leave a Comment</h3>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Input placeholder="Your Name" value={commentName} onChange={(e) => setCommentName(e.target.value)} required />
                   <Input type="email" placeholder="Your Email" value={commentEmail} onChange={(e) => setCommentEmail(e.target.value)} required />
@@ -151,7 +151,7 @@ export default function BlogDetailPage() {
 
           {post.related.length > 0 && (
             <div className="mt-16 pt-10 border-t border-border">
-              <h3 className="text-xl font-bold text-foreground mb-6">Related Articles</h3>
+              <h2 className="text-xl font-bold text-foreground mb-6">Related Articles</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {post.related.map((article) => (
                   <Link key={article.slug} href={`/blog/${article.slug}`} className="group">

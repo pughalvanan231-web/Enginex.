@@ -29,19 +29,19 @@ export function ConfirmationEmail({ name }: ConfirmationEmailProps) {
             <div style={{ background: "#FF8C38/05", border: "1px solid #FF8C38/10", borderRadius: 8, padding: 16, marginTop: 24 }}>
               <p style={{ color: "#6B6B6B", fontSize: 13, lineHeight: 1.6, margin: 0 }}>
                 <strong style={{ color: "#1A1A1A" }}>In the meantime:</strong><br />
-                Browse our <a href="https://enginex.solutions/portfolio" style={{ color: "#FF8C38" }}>portfolio</a> to see our recent work.<br />
-                Check out our <a href="https://enginex.solutions/services" style={{ color: "#FF8C38" }}>services</a> to learn more about what we offer.
+                Browse our <a href="https://www.enginexsolutions.in/portfolio" style={{ color: "#FF8C38" }}>portfolio</a> to see our recent work.<br />
+                Check out our <a href="https://www.enginexsolutions.in/services" style={{ color: "#FF8C38" }}>services</a> to learn more about what we offer.
               </p>
             </div>
 
             <p style={{ color: "#B0B0B0", fontSize: 13, lineHeight: 1.6, marginTop: 24 }}>
               Best regards,<br />
-              <strong style={{ color: "#1A1A1A" }}>The EngineX.solution Team</strong>
+              <strong style={{ color: "#1A1A1A" }}>The EngineX Solutions Team</strong>
             </p>
           </div>
 
           <p style={{ color: "#B0B0B0", fontSize: 12, textAlign: "center", marginTop: 16 }}>
-            EngineX.solution &bull; Delivering measurable business results
+            EngineX Solutions &bull; Delivering measurable business results
           </p>
         </div>
       </body>

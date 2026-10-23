@@ -3,11 +3,11 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 
 const footerLinks = {
   services: [
-    { href: '/services', label: 'Web Development' },
-    { href: '/services', label: 'Mobile Apps' },
-    { href: '/services', label: 'AI Solutions' },
-    { href: '/services', label: 'UI/UX Design' },
-    { href: '/services', label: 'Cloud Solutions' },
+    { href: '/services/web-development', label: 'Web Development' },
+    { href: '/services/mobile-app-development', label: 'Mobile Apps' },
+    { href: '/services/ai-ml-solutions', label: 'AI Solutions' },
+    { href: '/services/ui-ux-design', label: 'UI/UX Design' },
+    { href: '/services/cloud-solutions', label: 'Cloud Solutions' },
   ],
   company: [
     { href: '/about', label: 'About Us' },
@@ -96,7 +96,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/20">
-            &copy; {new Date().getFullYear()} EngineX.solution. All rights reserved.
+            &copy; {new Date().getFullYear()} EngineX Solutions. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="text-xs text-white/20 hover:text-[#FF8C38] transition-colors">

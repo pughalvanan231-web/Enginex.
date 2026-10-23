@@ -48,8 +48,9 @@ export default function ServicesSection() {
                 <h3 className="text-base font-semibold text-[#1A1A1A] mb-2">{service.title}</h3>
                 <p className="text-sm text-[#6B6B6B] leading-relaxed mb-5">{service.description}</p>
                 <Link href={service.href}
+                  aria-label={`Explore ${service.title} services`}
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-[#FF8C38] group-hover:gap-2.5 transition-all duration-500">
-                  Explore <ArrowRight className="w-3.5 h-3.5" />
+                  Explore {service.title} <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </motion.div>
             )

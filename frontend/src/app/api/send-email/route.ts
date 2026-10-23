@@ -17,20 +17,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const from = process.env.EMAIL_FROM || "EngineX.solution <onboarding@resend.dev>"
+    const from = process.env.EMAIL_FROM || "EngineX Solutions <onboarding@resend.dev>"
     const adminEmail = process.env.ADMIN_EMAIL || "pughalvanan231@gmail.com"
 
     const [notificationResult, confirmationResult] = await Promise.allSettled([
       resend.emails.send({
         from,
         to: adminEmail,
-        subject: "New Lead from EngineX.solution Website",
+        subject: "New Lead from EngineX Solutions Website",
         react: NotificationEmail({ name, email, phone, company, budget, projectType, message }),
       }),
       resend.emails.send({
         from,
         to: email,
-        subject: "Thank You for Contacting EngineX.solution",
+        subject: "Thank You for Contacting EngineX Solutions",
         react: ConfirmationEmail({ name }),
       }),
     ])

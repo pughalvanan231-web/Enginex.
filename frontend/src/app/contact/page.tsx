@@ -1,7 +1,31 @@
+import type { Metadata } from 'next'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import SectionHeading from '@/components/SectionHeading'
+import { getBreadcrumbSchema, SITE_URL } from '@/lib/json-ld'
+
+export const metadata: Metadata = {
+  title: 'Contact EngineX Solutions | Get a Project Quote & Consultation',
+  description:
+    'Get in touch with EngineX Solutions. Request a quote or schedule a 30-minute growth consultation for web development, mobile apps, AI automation, or custom software.',
+  alternates: {
+    canonical: '/contact',
+  },
+  openGraph: {
+    title: 'Contact EngineX Solutions | Free Project Consultation',
+    description:
+      'Have a project in mind? Reach out to EngineX Solutions to discuss custom software, AI automation, and web development.',
+    url: `${SITE_URL}/contact`,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact EngineX Solutions | Free Project Consultation',
+    description:
+      'Have a project in mind? Reach out to EngineX Solutions to discuss custom software, AI automation, and web development.',
+  },
+}
 
 const contactInfo = [
   {
@@ -25,12 +49,24 @@ const contactInfo = [
 ]
 
 export default function ContactPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Contact', path: '/contact' },
+  ])
+
   return (
     <main className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema).replace(/</g, '\\u003c'),
+        }}
+      />
       <Header />
       <div className="pt-32 pb-20">
         <div className="container-custom">
           <SectionHeading
+            as="h1"
             label="Contact"
             title="Get in Touch"
             description="Have a project in mind? Reach out to us and let us help you build something great."

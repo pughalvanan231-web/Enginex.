@@ -90,7 +90,7 @@ export default function Hero() {
             <div className="flex -space-x-2">
               {[28, 47, 12, 32].map((seed) => (
                 <div key={seed} className="w-9 h-9 rounded-full border-2 border-white bg-[#F5F5F5] flex items-center justify-center text-[10px] font-bold text-[#6B6B6B]">
-                  <img src={`https://i.pravatar.cc/36?img=${seed}`} alt="" className="w-full h-full rounded-full object-cover" />
+                  <img src={`https://i.pravatar.cc/36?img=${seed}`} alt="EngineX client partner avatar" className="w-full h-full rounded-full object-cover" />
                 </div>
               ))}
             </div>

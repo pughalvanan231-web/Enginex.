@@ -26,7 +26,7 @@ export default function TrustSection() {
       <div className="container-custom">
         <SectionHeading
           label="Why Trust Us"
-          title="Why Brands Trust EngineX.solution"
+          title="Why Brands Trust EngineX Solutions"
           description="We don't just build products — we build long-term partnerships grounded in results, transparency, and reliability."
         />
 
