@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Explore high-impact career opportunities at EngineX Solutions. Work on modern software engineering, AI systems, and cloud infrastructure.',
   alternates: {
-    canonical: '/careers',
+    canonical: 'https://www.enginexsolutions.in/careers',
   },
   openGraph: {
     title: 'Careers at EngineX Solutions | Join Our Team',

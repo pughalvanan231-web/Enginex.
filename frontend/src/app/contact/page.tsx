@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     'Get in touch with EngineX Solutions. Request a quote or schedule a 30-minute growth consultation for web development, mobile apps, AI automation, or custom software.',
   alternates: {
-    canonical: '/contact',
+    canonical: 'https://www.enginexsolutions.in/contact',
   },
   openGraph: {
     title: 'Contact EngineX Solutions | Free Project Consultation',

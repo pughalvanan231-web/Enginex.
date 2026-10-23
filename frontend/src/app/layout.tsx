@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'digital marketing',
   ],
   alternates: {
-    canonical: '/',
+    canonical: 'https://www.enginexsolutions.in/',
   },
   openGraph: {
     title: 'EngineX Solutions | AI, Web Development & Digital Marketing',

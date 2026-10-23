@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     }
   }
 
-  const canonicalUrl = `/services/${service.slug}`
+  const canonicalUrl = `https://www.enginexsolutions.in/services/${service.slug}`
 
   return {
     title: service.metaTitle,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     openGraph: {
       title: service.metaTitle,
       description: service.metaDescription,
-      url: `${SITE_URL}${canonicalUrl}`,
+      url: canonicalUrl,
       type: 'website',
       siteName: 'EngineX Solutions',
     },

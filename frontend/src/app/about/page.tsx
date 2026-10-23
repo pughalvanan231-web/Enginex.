@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Discover EngineX Solutions: our mission, leadership, core values, and proven expertise in custom software development, AI automation, and high-performance web platforms.',
   alternates: {
-    canonical: '/about',
+    canonical: 'https://www.enginexsolutions.in/about',
   },
   openGraph: {
     title: 'About EngineX Solutions | Intelligent Digital Solutions',

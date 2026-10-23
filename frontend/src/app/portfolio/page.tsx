@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Explore our portfolio of successful digital projects, custom software development, web applications, and AI integrations built for high-growth businesses.',
   alternates: {
-    canonical: '/portfolio',
+    canonical: 'https://www.enginexsolutions.in/portfolio',
   },
   openGraph: {
     title: 'Portfolio & Case Studies | EngineX Solutions',

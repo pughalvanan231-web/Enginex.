@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Read articles and insights on modern web development, artificial intelligence, cloud architectures, and digital transformation from EngineX Solutions.',
   alternates: {
-    canonical: '/blog',
+    canonical: 'https://www.enginexsolutions.in/blog',
   },
   openGraph: {
     title: 'Insights & Articles | EngineX Solutions',

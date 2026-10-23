@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Privacy Policy | EngineX Solutions',
   description: 'Learn how EngineX Solutions collects, uses, and safeguards your personal information when you use our website and software services.',
   alternates: {
-    canonical: '/privacy',
+    canonical: 'https://www.enginexsolutions.in/privacy',
   },
   openGraph: {
     title: 'Privacy Policy | EngineX Solutions',

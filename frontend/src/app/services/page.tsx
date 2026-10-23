@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Explore comprehensive technology and digital solutions by EngineX Solutions: custom web development, mobile apps, AI automation, cloud architecture, and UI/UX design.',
   alternates: {
-    canonical: '/services',
+    canonical: 'https://www.enginexsolutions.in/services',
   },
   openGraph: {
     title: 'Our Services | EngineX Solutions',

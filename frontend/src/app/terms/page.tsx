@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'Terms of Service | EngineX Solutions',
   description: 'Review the Terms of Service governing the use of EngineX Solutions website, software engineering services, and digital products.',
   alternates: {
-    canonical: '/terms',
+    canonical: 'https://www.enginexsolutions.in/terms',
   },
   openGraph: {
     title: 'Terms of Service | EngineX Solutions',
