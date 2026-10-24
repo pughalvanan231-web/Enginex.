@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Search, ExternalLink } from 'lucide-react'
+import { Search, ExternalLink, Layers, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import SectionHeading from '@/components/SectionHeading'
 import { Input } from '@/components/ui/input'
 import api from '@/lib/api'
+import { staticProjects } from '@/lib/portfolio-data'
 
 interface Project {
   id: string
@@ -17,39 +18,62 @@ interface Project {
   description: string
   category: string
   technologies: string[]
-  images: { url: string }[]
-  clientName: string
-  completionDate: string
-  projectUrl: string | null
+  clientName?: string
+  completionDate?: string
+  projectUrl?: string | null
 }
 
+const defaultProjects: Project[] = staticProjects.map((p) => ({
+  id: p.id,
+  title: p.title,
+  slug: p.slug,
+  description: p.description,
+  category: p.category,
+  technologies: p.technologies,
+  clientName: p.clientName,
+  completionDate: p.completionDate,
+  projectUrl: p.projectUrl,
+}))
+
 export default function PortfolioClient() {
-  const [projects, setProjects] = useState<Project[]>([])
-  const [categories, setCategories] = useState<{ name: string; count: number }[]>([])
+  const [projects, setProjects] = useState<Project[]>(defaultProjects)
+  const [categories, setCategories] = useState<{ name: string; count: number }[]>([
+    { name: 'Web Development', count: 1 },
+    { name: 'Digital Marketing', count: 1 },
+    { name: 'AI Automation', count: 1 },
+    { name: 'Mobile App Development', count: 1 },
+  ])
   const [activeCategory, setActiveCategory] = useState('all')
   const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
 
   useEffect(() => {
-    api.get('/projects/categories').then(res => setCategories(res.data)).catch(() => {})
+    api.get('/projects/categories')
+      .then((res) => {
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setCategories(res.data)
+        }
+      })
+      .catch(() => {})
   }, [])
 
   useEffect(() => {
-    setLoading(true)
-    const params = new URLSearchParams({ page: String(page), limit: '9' })
-    if (activeCategory !== 'all') params.set('category', activeCategory)
-    if (search) params.set('search', search)
+    if (activeCategory === 'all' && !search) {
+      setProjects(defaultProjects)
+      return
+    }
 
-    api.get(`/projects?${params}`)
-      .then(res => {
-        setProjects(res.data.projects)
-        setTotalPages(res.data.pages)
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [activeCategory, page, search])
+    const filtered = defaultProjects.filter((p) => {
+      const matchCat =
+        activeCategory === 'all' || p.category.toLowerCase() === activeCategory.toLowerCase()
+      const matchSearch =
+        !search ||
+        p.title.toLowerCase().includes(search.toLowerCase()) ||
+        p.description.toLowerCase().includes(search.toLowerCase())
+      return matchCat && matchSearch
+    })
+
+    setProjects(filtered)
+  }, [activeCategory, search])
 
   return (
     <main className="min-h-screen bg-background">
@@ -58,110 +82,120 @@ export default function PortfolioClient() {
         <div className="container-custom">
           <SectionHeading
             as="h1"
-            label="Portfolio"
-            title="Our Work & Case Studies"
-            description="Explore our latest projects showcasing high-performance web applications, AI automation, and innovative software solutions."
+            label="Portfolio & Case Studies"
+            title="Engineered Solutions & Client Case Studies"
+            description="Explore our portfolio of high-performance websites, custom software, practical AI automations, and digital marketing systems delivered across India."
           />
 
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-12">
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => { setActiveCategory('all'); setPage(1) }}
-                className={`px-4 py-2 rounded-full text-sm transition-all ${
-                  activeCategory === 'all' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
+                onClick={() => setActiveCategory('all')}
+                className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                  activeCategory === 'all'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'bg-muted text-muted-foreground hover:text-foreground'
                 }`}
               >
-                All
+                All Projects ({defaultProjects.length})
               </button>
               {categories.map((cat) => (
                 <button
                   key={cat.name}
-                  onClick={() => { setActiveCategory(cat.name); setPage(1) }}
-                  className={`px-4 py-2 rounded-full text-sm transition-all ${
-                    activeCategory === cat.name ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'
+                  onClick={() => setActiveCategory(cat.name)}
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                    activeCategory === cat.name
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'bg-muted text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  {cat.name} ({cat.count})
+                  {cat.name}
                 </button>
               ))}
             </div>
-            <div className="relative w-full md:w-64">
+            <div className="relative w-full md:w-72">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Search projects..."
+                placeholder="Search case studies..."
                 value={search}
-                onChange={(e) => { setSearch(e.target.value); setPage(1) }}
-                className="pl-10"
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-9 text-sm"
               />
             </div>
           </div>
 
-          {loading ? (
-            <div className="grid md:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="card-subtle p-6 animate-pulse">
-                  <div className="aspect-video bg-muted rounded-lg mb-4" />
-                  <div className="h-4 bg-muted rounded w-1/3 mb-2" />
-                  <div className="h-6 bg-muted rounded w-2/3 mb-3" />
-                  <div className="h-3 bg-muted rounded w-full" />
-                </div>
-              ))}
-            </div>
-          ) : projects.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-muted-foreground text-lg">No projects found.</p>
+          {projects.length === 0 ? (
+            <div className="text-center py-20 card-subtle p-12 max-w-lg mx-auto">
+              <p className="text-muted-foreground text-base">No case studies matched your criteria.</p>
+              <button
+                onClick={() => {
+                  setActiveCategory('all')
+                  setSearch('')
+                }}
+                className="mt-4 text-xs font-medium text-primary hover:underline"
+              >
+                Clear all filters
+              </button>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               {projects.map((project, i) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.06 }}
                 >
-                  <Link href={`/portfolio/${project.slug}`} className="group block">
-                    <div className="card-subtle overflow-hidden h-full">
-                      <div className="aspect-video bg-gradient-to-br from-primary/10 to-transparent flex items-center justify-center overflow-hidden">
-                        {project.images?.[0] ? (
-                          <img src={project.images[0].url} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        ) : (
-                          <span className="text-5xl text-primary/20 font-bold">{project.title[0]}</span>
-                        )}
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs text-primary font-medium uppercase tracking-wider">{project.category}</span>
-                          <ExternalLink className="w-3 h-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <Link href={`/portfolio/${project.slug}`} className="group block h-full">
+                    <div className="card-elevated overflow-hidden h-full flex flex-col justify-between border border-border/80 hover:border-primary/40 transition-all duration-300">
+                      <div className="aspect-[16/9] bg-gradient-to-br from-primary/10 via-primary/05 to-transparent flex flex-col items-center justify-center p-6 text-center border-b border-border/60">
+                        <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-3 text-primary">
+                          <Layers className="w-6 h-6" />
                         </div>
-                        <h2 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">{project.title}</h2>
-                        <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{project.description}</p>
-                        <div className="flex flex-wrap gap-2 mt-4">
-                          {project.technologies?.slice(0, 3).map((tech) => (
-                            <span key={tech} className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground">{tech}</span>
-                          ))}
+                        <span className="text-[11px] font-bold text-primary tracking-widest uppercase">
+                          Case Study
+                        </span>
+                        <span className="text-xs text-muted-foreground mt-0.5 font-medium">
+                          {project.category}
+                        </span>
+                      </div>
+
+                      <div className="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[11px] text-primary font-bold uppercase tracking-wider">
+                              {project.category}
+                            </span>
+                            <ExternalLink className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                          <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-snug">
+                            {project.title}
+                          </h2>
+                          <p className="text-xs sm:text-sm text-muted-foreground mt-2.5 leading-relaxed">
+                            {project.description}
+                          </p>
+                        </div>
+
+                        <div className="mt-6 pt-4 border-t border-border flex items-center justify-between">
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.technologies?.slice(0, 3).map((tech) => (
+                              <span
+                                key={tech}
+                                className="text-[11px] px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground font-medium"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                          <span className="text-xs font-semibold text-primary inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                            View Case Study <ArrowRight className="w-3 h-3" />
+                          </span>
                         </div>
                       </div>
                     </div>
                   </Link>
                 </motion.div>
-              ))}
-            </div>
-          )}
-
-          {totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-12">
-              {Array.from({ length: totalPages }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPage(i + 1)}
-                  className={`w-10 h-10 rounded-lg text-sm transition-all ${
-                    page === i + 1 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {i + 1}
-                </button>
               ))}
             </div>
           )}

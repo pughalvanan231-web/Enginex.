@@ -2,42 +2,35 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, ExternalLink, Calendar, User } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Calendar, User, CheckCircle2, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import api from '@/lib/api'
+import { PortfolioProject } from '@/lib/portfolio-data'
 
-interface Project {
-  id: string
-  title: string
+interface ProjectDetailClientProps {
   slug: string
-  description: string
-  content: string | null
-  category: string
-  technologies: string[]
-  clientName: string
-  completionDate: string
-  projectUrl: string | null
-  images: { url: string }[]
-  author: { name: string }
+  initialProject?: PortfolioProject
 }
 
-export default function ProjectDetailClient({ slug }: { slug: string }) {
-  const [project, setProject] = useState<Project | null>(null)
-  const [loading, setLoading] = useState(true)
+export default function ProjectDetailClient({ slug, initialProject }: ProjectDetailClientProps) {
+  const [project, setProject] = useState<any>(initialProject || null)
+  const [loading, setLoading] = useState(!initialProject)
 
   useEffect(() => {
     if (!slug) return
     api.get(`/projects/${slug}`)
-      .then(res => setProject(res.data))
+      .then((res) => {
+        if (res.data) setProject(res.data)
+      })
       .catch(() => {})
       .finally(() => setLoading(false))
   }, [slug])
 
-  if (loading) {
+  if (loading && !project) {
     return (
       <main className="min-h-screen bg-background">
         <Header />
@@ -58,9 +51,14 @@ export default function ProjectDetailClient({ slug }: { slug: string }) {
     return (
       <main className="min-h-screen bg-background">
         <Header />
-        <div className="pt-32 pb-20 text-center">
-          <h1 className="text-4xl font-bold text-foreground">Project Not Found</h1>
-          <Link href="/portfolio"><Button variant="primary" className="mt-6">Back to Portfolio</Button></Link>
+        <div className="pt-32 pb-20 text-center container-custom">
+          <h1 className="text-4xl font-bold text-foreground">Case Study Not Found</h1>
+          <p className="text-muted-foreground mt-2">The case study you requested could not be located.</p>
+          <Link href="/portfolio">
+            <Button variant="primary" className="mt-6">
+              Back to Portfolio
+            </Button>
+          </Link>
         </div>
         <Footer />
       </main>
@@ -71,61 +69,103 @@ export default function ProjectDetailClient({ slug }: { slug: string }) {
     <main className="min-h-screen bg-background">
       <Header />
       <div className="pt-32 pb-20">
-        <div className="container-custom max-w-5xl">
-          <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" /> Back to Portfolio
+        <div className="container-custom max-w-4xl">
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to All Case Studies
           </Link>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <Badge>{project.category}</Badge>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-6">{project.title}</h1>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-10">
-              <span className="flex items-center gap-2"><User className="w-4 h-4" />{project.clientName}</span>
-              <span className="flex items-center gap-2"><Calendar className="w-4 h-4" />{new Date(project.completionDate).toLocaleDateString()}</span>
-              {project.projectUrl && (
-                <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:text-primary/80">
-                  <ExternalLink className="w-4 h-4" /> Live Project
-                </a>
+              {project.completionDate && (
+                <span className="text-xs text-muted-foreground flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5" /> {project.completionDate}
+                </span>
               )}
             </div>
+
+            <h1 className="text-3xl md:text-5xl font-bold text-foreground leading-tight mb-4">
+              {project.title}
+            </h1>
+
+            {project.clientName && (
+              <p className="text-sm font-semibold text-primary mb-6">
+                Client Profile: {project.clientName}
+              </p>
+            )}
+
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
+              {project.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2 mb-10 pb-6 border-b border-border">
+              {project.technologies?.map((tech: string) => (
+                <Badge key={tech} variant="secondary" className="px-3 py-1 text-xs">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="card-subtle p-2 mb-10">
-            {project.images?.[0] ? (
-              <img src={project.images[0].url} alt={project.title} className="w-full aspect-video object-cover rounded-lg" />
-            ) : (
-              <div className="aspect-video bg-gradient-to-br from-primary/10 to-transparent rounded-lg flex items-center justify-center">
-                <span className="text-8xl text-primary/10 font-bold">{project.title[0]}</span>
+          {/* Structured Case Study Sections */}
+          <div className="space-y-8 mb-14">
+            {project.challenge && (
+              <div className="card-subtle p-7">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
+                  The Problem &amp; Business Context
+                </span>
+                <h2 className="text-xl font-bold text-foreground mb-3">Project Challenge</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {project.challenge}
+                </p>
               </div>
             )}
-          </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="grid lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-foreground mb-4">About This Project</h2>
-              <div className="text-muted-foreground leading-relaxed space-y-4">
-                <p>{project.description}</p>
-                {project.content && <div dangerouslySetInnerHTML={{ __html: project.content }} />}
+            {project.solution && (
+              <div className="card-subtle p-7 border-primary/20 bg-gradient-to-br from-primary/05 to-transparent">
+                <span className="text-xs font-bold uppercase tracking-wider text-primary block mb-2">
+                  Our Engineering Approach
+                </span>
+                <h2 className="text-xl font-bold text-foreground mb-3">Technical Solution</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {project.solution}
+                </p>
               </div>
-            </div>
-            <div>
-              <div className="card-subtle p-6 space-y-6">
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Technologies Used</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <Badge key={tech} variant="secondary">{tech}</Badge>
-                    ))}
-                  </div>
-                </div>
-                <Link href="/contact">
-                  <Button variant="primary" className="w-full">Start a Similar Project</Button>
-                </Link>
+            )}
+
+            {project.outcome && (
+              <div className="card-subtle p-7">
+                <span className="text-xs font-bold uppercase tracking-wider text-green-600 block mb-2">
+                  Measurable Business Impact
+                </span>
+                <h2 className="text-xl font-bold text-foreground mb-3 flex items-center gap-2">
+                  <CheckCircle2 className="w-5 h-5 text-green-600" /> Key Outcomes &amp; Results
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {project.outcome}
+                </p>
               </div>
-            </div>
-          </motion.div>
+            )}
+          </div>
+
+          {/* Bottom Conversion CTA */}
+          <div className="card-subtle p-8 text-center border-primary/20">
+            <h3 className="text-xl font-bold text-foreground mb-2">
+              Have a Similar Project Requirement?
+            </h3>
+            <p className="text-sm text-muted-foreground mb-6 max-w-lg mx-auto">
+              Discuss your architecture and growth goals with our engineering team. We deliver custom solutions tailored to your operational needs.
+            </p>
+            <Link href="/contact">
+              <Button variant="primary" size="lg" className="gap-2 group">
+                Schedule a Consultation{' '}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
       <Footer />

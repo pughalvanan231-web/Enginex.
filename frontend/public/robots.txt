@@ -4,3 +4,4 @@ Disallow: /admin/
 Disallow: /api/
 
 Sitemap: https://www.enginexsolutions.in/sitemap.xml
+Host: https://www.enginexsolutions.in

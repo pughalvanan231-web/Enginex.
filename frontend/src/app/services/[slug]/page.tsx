@@ -7,7 +7,12 @@ import {
   getAllServiceSlugs,
   ServiceItem,
 } from '@/lib/services-data'
-import { getServiceSchema, getBreadcrumbSchema, SITE_URL } from '@/lib/json-ld'
+import {
+  getServiceSchema,
+  getBreadcrumbSchema,
+  getFAQSchema,
+  SITE_URL,
+} from '@/lib/json-ld'
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>
@@ -29,7 +34,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     }
   }
 
-  const canonicalUrl = `https://www.enginexsolutions.in/services/${service.slug}`
+  const canonicalUrl = `${SITE_URL}/services/${service.slug}`
 
   return {
     title: service.metaTitle,
@@ -65,11 +70,15 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     .filter((s): s is ServiceItem => Boolean(s))
 
   const serviceSchema = getServiceSchema(service)
+  const faqSchema = service.faqs && service.faqs.length > 0 ? getFAQSchema(service.faqs) : null
   const breadcrumbSchema = getBreadcrumbSchema([
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
     { name: service.title, path: `/services/${service.slug}` },
   ])
+
+  const graphList: Record<string, any>[] = [serviceSchema, breadcrumbSchema]
+  if (faqSchema) graphList.push(faqSchema)
 
   return (
     <>
@@ -78,7 +87,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@graph': [serviceSchema, breadcrumbSchema],
+            '@graph': graphList,
           }).replace(/</g, '\\u003c'),
         }}
       />

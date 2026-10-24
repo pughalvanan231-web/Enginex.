@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, Eye, Target, Heart, ArrowRight, Globe } from 'lucide-react'
+import { Shield, Eye, Target, Heart, ArrowRight, Code2, Cpu, LineChart, MapPin } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -9,24 +9,51 @@ import SectionHeading from '@/components/SectionHeading'
 import { Button } from '@/components/ui/button'
 
 const values = [
-  { icon: Shield, title: 'Innovation', description: 'We push boundaries with cutting-edge technology and creative problem-solving to deliver solutions that set new standards.' },
-  { icon: Eye, title: 'Transparency', description: 'Open communication and honest collaboration throughout every project. No hidden agendas, just results.' },
-  { icon: Target, title: 'Excellence', description: 'We deliver nothing less than exceptional quality in every solution, every time.' },
-  { icon: Heart, title: 'People-First', description: 'Our clients and team are at the heart of everything we build. Technology serves people, not the other way around.' },
+  {
+    icon: Code2,
+    title: 'Technical Rigor',
+    description:
+      'We build on proven, modern foundations like Next.js, TypeScript, and robust cloud APIs. No fragile shortcuts, no bloated plugins.',
+  },
+  {
+    icon: Eye,
+    title: 'Commercial Transparency',
+    description:
+      'Direct, jargon-free communication with full client ownership of source code, ad accounts, and analytics data from day one.',
+  },
+  {
+    icon: Target,
+    title: 'Results First',
+    description:
+      'Every technology platform and marketing campaign is engineered around measurable outcomes—qualified leads, search rankings, and system speed.',
+  },
+  {
+    icon: Shield,
+    title: 'Data Privacy & Security',
+    description:
+      'We implement strict enterprise data boundaries. Proprietary business documents and customer information are never shared or used to train public AI models.',
+  },
 ]
 
-const stats = [
-  { type: 'stat', value: '50+', label: 'Projects Delivered' },
-  { type: 'stat', value: '5+', label: 'Years Experience' },
-  { type: 'message', text: 'DELIVERING ALL OVER THE WORLD' },
-  { type: 'stat', value: '98%', label: 'Client Satisfaction' },
-]
-
-const team = [
-  { name: 'Alex Chen', role: 'CEO & Founder', bio: 'Visionary leader with 15+ years in software engineering and AI.' },
-  { name: 'Sarah Mitchell', role: 'CTO', bio: 'Expert in cloud architecture and distributed systems.' },
-  { name: 'David Park', role: 'Head of Design', bio: 'Award-winning designer focused on user-centered experiences.' },
-  { name: 'Maria Rodriguez', role: 'AI Research Lead', bio: 'PhD in Machine Learning with focus on NLP and computer vision.' },
+const operationalPillars = [
+  {
+    icon: Cpu,
+    title: 'Full-Stack Software & AI',
+    description:
+      'Architecting resilient web applications, mobile apps, and custom workflow automations that eliminate operational friction.',
+  },
+  {
+    icon: LineChart,
+    title: 'Performance Digital Marketing',
+    description:
+      'Targeting high-intent buyers through white-hat technical SEO, precision Google Ads, and full-funnel Meta advertising.',
+  },
+  {
+    icon: MapPin,
+    title: 'Pan-India Delivery',
+    description:
+      'Headquartered in Sulur, Coimbatore, providing responsive engineering and digital growth services to clients across India.',
+  },
 ]
 
 export default function AboutClient() {
@@ -38,99 +65,127 @@ export default function AboutClient() {
           <SectionHeading
             as="h1"
             label="About Us"
-            title="Transforming Ideas into Intelligent Digital Solutions"
-            description="EngineX Solutions is a modern software development and AI solutions company that specializes in custom software, AI applications, web development, mobile applications, UI/UX design, automation systems, and digital transformation services."
+            title="Engineering High-Performance Digital Solutions"
+            description="EngineX Solutions is an independent technology, software development, AI automation, and digital marketing agency based in Sulur, Coimbatore, Tamil Nadu."
           />
 
-          <div className="max-w-3xl mx-auto text-center mb-20">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Founded with a passion for engineering excellence, we have grown into a full-service technology partner serving clients worldwide. Our mission is to bridge the gap between ambitious business goals and high-impact digital solutions.
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              We founded EngineX Solutions to bridge the gap between complex software engineering and practical business growth. Rather than peddling vanity metrics or one-size-fits-all website templates, we partner with Indian businesses to engineer custom digital platforms, automated workflows, and measurable customer acquisition engines.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6 mb-24">
-            {stats.map((stat, i) => (
-              stat.type === 'message' ? (
+          {/* Operational Pillars */}
+          <div className="grid md:grid-cols-3 gap-6 mb-24">
+            {operationalPillars.map((pillar, i) => {
+              const Icon = pillar.icon
+              return (
                 <motion.div
-                  key={stat.text}
+                  key={pillar.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="card-subtle p-8 text-center flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 to-transparent border border-primary/20"
+                  className="card-subtle p-7 hover:border-primary/30 transition-all duration-300"
                 >
-                  <Globe className="w-10 h-10 text-primary mb-3" />
-                  <div className="text-sm text-muted-foreground font-semibold tracking-wider leading-relaxed">{stat.text}</div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="card-subtle p-8 text-center"
-                >
-                  <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{pillar.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {pillar.description}
+                  </p>
                 </motion.div>
               )
-            ))}
+            })}
           </div>
 
+          {/* Core Values */}
           <div className="mb-24">
-            <h2 className="text-2xl font-bold text-foreground text-center mb-12">Our Core Values</h2>
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="section-label">Our Philosophy</span>
+              <h2 className="section-title">Core Operating Principles</h2>
+              <p className="section-desc mt-3 mx-auto">
+                How we approach engineering, client relationships, and commercial accountability.
+              </p>
+            </div>
+
             <div className="grid md:grid-cols-2 gap-6">
-              {values.map((value, i) => (
-                <motion.div
-                  key={value.title}
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="card-subtle p-8 flex gap-6"
-                >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <value.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{value.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+              {values.map((value, i) => {
+                const Icon = value.icon
+                return (
+                  <motion.div
+                    key={value.title}
+                    initial={{ opacity: 0, x: i % 2 === 0 ? -15 : 15 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.08 }}
+                    className="card-subtle p-8 flex gap-5 hover:border-primary/30 transition-all"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-primary">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
+                        {value.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {value.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
           </div>
 
-          <div className="mb-24">
-            <h2 className="text-2xl font-bold text-foreground text-center mb-12">Our Leadership Team</h2>
-            <div className="grid md:grid-cols-4 gap-6">
-              {team.map((member, i) => (
-                <motion.div
-                  key={member.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="card-subtle p-6 text-center group hover:border-primary/20 transition-all"
-                >
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-primary">{member.name[0]}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-1">{member.name}</h3>
-                  <div className="text-sm text-primary mb-3">{member.role}</div>
-                  <p className="text-sm text-muted-foreground">{member.bio}</p>
-                </motion.div>
-              ))}
+          {/* Leadership & E-E-A-T */}
+          <div className="mb-24 card-subtle p-8 sm:p-12 border border-primary/20 bg-gradient-to-br from-primary/05 via-transparent to-transparent max-w-4xl mx-auto">
+            <span className="section-label">Leadership</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              Hands-On Technical Leadership
+            </h2>
+            <div className="flex flex-col sm:flex-row items-start gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-primary text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-md">
+                P
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-foreground">
+                  Pughalvanan
+                </h3>
+                <div className="text-xs font-semibold text-primary mb-3">
+                  Founder & Principal Systems Engineer
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  With deep hands-on expertise spanning full-stack TypeScript architecture, Next.js, cloud systems, and search algorithms, Pughalvanan leads technical strategy and delivery at EngineX Solutions. Every client project receives senior architectural oversight from scoping through production deployment.
+                </p>
+                <div className="flex flex-wrap gap-4 text-xs font-medium text-foreground">
+                  <span className="flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-primary" /> Sulur, Coimbatore, Tamil Nadu
+                  </span>
+                  <a
+                    href="mailto:pughalvanan231@gmail.com"
+                    className="text-primary hover:underline"
+                  >
+                    pughalvanan231@gmail.com
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-foreground mb-4">Ready to Work Together?</h2>
-            <p className="text-muted-foreground mb-8 max-w-xl mx-auto">Let&apos;s discuss your project and find the best solution for your needs.</p>
+          {/* CTA */}
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              Looking for a Reliable Digital Partner?
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground mb-8">
+              Let&apos;s evaluate your current technical stack, organic visibility, and customer acquisition channels.
+            </p>
             <Link href="/contact">
-              <Button variant="primary" size="lg" className="gap-2 group">
-                Get in Touch <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Button variant="primary" size="lg" className="gap-2 group shadow-lg shadow-primary/20">
+                Schedule a Consultation{' '}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
           </div>

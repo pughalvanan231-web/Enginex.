@@ -85,19 +85,16 @@ export default function Hero() {
 
           <motion.div
             variants={itemVariants}
-            className="mt-16 md:mt-20 flex flex-wrap items-center gap-10 md:gap-16 pt-10 border-t border-[#F0F0F0]"
+            className="mt-14 flex flex-wrap items-center gap-6 pt-8 border-t border-[#F0F0F0] text-xs text-[#6B6B6B]"
           >
-            <div className="flex -space-x-2">
-              {[28, 47, 12, 32].map((seed) => (
-                <div key={seed} className="w-9 h-9 rounded-full border-2 border-white bg-[#F5F5F5] flex items-center justify-center text-[10px] font-bold text-[#6B6B6B]">
-                  <img src={`https://i.pravatar.cc/36?img=${seed}`} alt="EngineX client partner avatar" className="w-full h-full rounded-full object-cover" />
-                </div>
-              ))}
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="font-semibold text-[#1A1A1A]">Engineered in Coimbatore</span> (Serving India-Wide)
             </div>
-            <div>
-              <div className="text-sm font-semibold text-[#1A1A1A]">28+ projects delivered</div>
-              <div className="text-xs text-[#B0B0B0]">2+ clients served</div>
-            </div>
+            <span className="text-[#D0D0D0] hidden sm:inline">&bull;</span>
+            <div>100% Client Code &amp; Ad Account Ownership</div>
+            <span className="text-[#D0D0D0] hidden sm:inline">&bull;</span>
+            <div>Strict Data Privacy &amp; Zero Public Model Training</div>
           </motion.div>
         </div>
 
@@ -106,13 +103,13 @@ export default function Hero() {
           className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 p-8 rounded-2xl bg-[#FAFAFA] border border-[#F0F0F0]"
         >
           {[
-            { value: '3.8x', label: 'AVERAGE ROI', sublabel: 'Across digital campaigns in last 24 months' },
-            { value: '127', label: 'AVG. RANKINGS', sublabel: 'Keywords moved to page 1 for clients in 2025' },
-            { value: '1+', label: 'YEARS OF EXCELLENCE', sublabel: 'Since 2025' },
-            { value: '4+', label: 'EXPERT PROFESSIONALS', sublabel: 'Dev · Marketing · Strategy' },
+            { value: 'Next.js 15', label: 'EDGE ARCHITECTURE', sublabel: 'Sub-second SSR & Core Web Vitals' },
+            { value: '100%', label: 'ACCOUNT OWNERSHIP', sublabel: 'Client owns all code, pixels & ad assets' },
+            { value: 'India-Wide', label: 'SERVICE REACH', sublabel: 'Headquarters: Sulur, Coimbatore' },
+            { value: 'White-Hat', label: 'SEARCH METHODOLOGY', sublabel: 'Strict Google Search Essentials alignment' },
           ].map((stat) => (
             <div key={stat.label} className="text-center md:text-left">
-              <div className="text-3xl md:text-4xl font-bold text-[#FF8C38] mb-1">{stat.value}</div>
+              <div className="text-2xl md:text-3xl font-bold text-[#FF8C38] mb-1">{stat.value}</div>
               <div className="text-[11px] font-semibold text-[#1A1A1A] tracking-[0.08em] uppercase mb-0.5">{stat.label}</div>
               <div className="text-[11px] text-[#B0B0B0]">{stat.sublabel}</div>
             </div>

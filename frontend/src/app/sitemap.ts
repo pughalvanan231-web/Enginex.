@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { servicesList } from '@/lib/services-data'
+import { staticBlogPosts } from '@/lib/blog-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.enginexsolutions.in'
@@ -65,9 +66,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const serviceRoutes: MetadataRoute.Sitemap = servicesList.map((service) => ({
     url: `${baseUrl}/services/${service.slug}`,
     lastModified: currentDate,
-    changeFrequency: 'monthly',
+    changeFrequency: 'weekly',
     priority: 0.85,
   }))
 
-  return [...staticRoutes, ...serviceRoutes]
+  const blogRoutes: MetadataRoute.Sitemap = staticBlogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedAt),
+    changeFrequency: 'monthly',
+    priority: 0.75,
+  }))
+
+  return [...staticRoutes, ...serviceRoutes, ...blogRoutes]
 }
