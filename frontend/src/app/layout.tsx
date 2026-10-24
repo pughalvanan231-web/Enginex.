@@ -40,6 +40,14 @@ export const metadata: Metadata = {
       'EngineX Solutions helps businesses grow with website and app development, AI automation, SEO, Google Ads, Meta Ads, social media marketing, branding, and video production.',
     url: SITE_URL,
     siteName: 'EngineX Solutions',
+    images: [
+      {
+        url: `${SITE_URL}/images/enginex-logo.png`,
+        width: 2481,
+        height: 2481,
+        alt: 'EngineX Solutions Logo',
+      },
+    ],
     locale: 'en_US',
     type: 'website',
   },
@@ -48,6 +56,7 @@ export const metadata: Metadata = {
     title: 'EngineX Solutions | AI, Web Development & Digital Marketing',
     description:
       'EngineX Solutions helps businesses grow with website and app development, AI automation, SEO, Google Ads, Meta Ads, social media marketing, branding, and video production.',
+    images: [`${SITE_URL}/images/enginex-logo.png`],
   },
   robots: {
     index: true,

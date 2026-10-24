@@ -18,7 +18,15 @@ export const organizationSchema = {
   name: 'EngineX Solutions',
   alternateName: ['EngineX', 'EngineX Solution'],
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.ico`,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${SITE_URL}/images/enginex-logo.png`,
+    width: 2481,
+    height: 2481,
+  },
+  sameAs: [
+    'https://www.instagram.com/enginex.solutions/',
+  ],
   email: 'pughalvanan231@gmail.com',
   telephone: '+917867050320',
   description:
@@ -206,7 +214,9 @@ export function getArticleSchema(article: ArticleItem) {
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
-        url: `${SITE_URL}/favicon.ico`,
+        url: `${SITE_URL}/images/enginex-logo.png`,
+        width: 2481,
+        height: 2481,
       },
     },
     datePublished: article.publishedAt,

@@ -97,9 +97,9 @@ export default function EnquiryModal({ isOpen, onClose, defaultService }: Enquir
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleReset()}>
-      <DialogContent className="sm:max-w-lg p-6 sm:p-8 max-h-[90vh] overflow-y-auto bg-white border border-border shadow-2xl">
+      <DialogContent className="sm:max-w-lg p-6 sm:p-8 max-h-[90vh] overflow-y-auto bg-[#0B0B0E] border border-white/15 text-white shadow-2xl backdrop-blur-2xl">
         <DialogHeader className="mb-4">
-          <DialogTitle className="text-2xl font-bold text-foreground">
+          <DialogTitle className="text-2xl font-bold text-white">
             {submitted ? 'Inquiry Received' : `Consultation: ${defaultService || 'EngineX Solutions'}`}
           </DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
@@ -193,7 +193,7 @@ export default function EnquiryModal({ isOpen, onClose, defaultService }: Enquir
                 <select
                   value={projectType}
                   onChange={(e) => setProjectType(e.target.value)}
-                  className="w-full text-xs rounded-md border border-input bg-background px-3 py-2 text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+                  className="w-full text-xs rounded-xl border border-white/10 bg-[#141418] px-3 py-2.5 text-white focus:outline-none focus:border-white/40"
                 >
                   <option value="Digital Marketing Services">Digital Marketing Services</option>
                   <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
@@ -214,7 +214,7 @@ export default function EnquiryModal({ isOpen, onClose, defaultService }: Enquir
                 <select
                   value={budget}
                   onChange={(e) => setBudget(e.target.value)}
-                  className="w-full text-xs rounded-md border border-input bg-background px-3 py-2 text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+                  className="w-full text-xs rounded-xl border border-white/10 bg-[#141418] px-3 py-2.5 text-white focus:outline-none focus:border-white/40"
                 >
                   <option value="">Select an investment range</option>
                   <option value="₹25k - ₹50k">₹25,000 – ₹50,000</option>

@@ -24,12 +24,21 @@ export const metadata: Metadata = {
     url: SITE_URL,
     type: 'website',
     siteName: 'EngineX Solutions',
+    images: [
+      {
+        url: `${SITE_URL}/images/enginex-logo.png`,
+        width: 2481,
+        height: 2481,
+        alt: 'EngineX Solutions Logo',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'EngineX Solutions | Web Development, AI Automation & Digital Marketing',
     description:
       'EngineX Solutions helps Indian businesses scale with custom web platforms, practical AI automation, white-hat SEO, and performance advertising.',
+    images: [`${SITE_URL}/images/enginex-logo.png`],
   },
 }
 

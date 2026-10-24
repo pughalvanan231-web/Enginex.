@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin } from 'lucide-react'
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react'
 
 const footerLinks = {
   services: [
@@ -16,8 +16,8 @@ const footerLinks = {
   ],
   company: [
     { href: '/about', label: 'About Us' },
-    { href: '/portfolio', label: 'Portfolio' },
-    { href: '/blog', label: 'Insights & Guides' },
+    { href: '/portfolio', label: 'Portfolio & Case Studies' },
+    { href: '/blog', label: 'Engineering Blog' },
     { href: '/careers', label: 'Careers' },
     { href: '/contact', label: 'Contact Us' },
   ],
@@ -29,38 +29,44 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A0A0A] border-t border-white/5">
-      <div className="container-custom py-16 md:py-20">
+    <footer className="bg-[#040406] border-t border-white/[0.08] relative overflow-hidden">
+      <div className="container-custom py-16 md:py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
           {/* Brand Column */}
           <div className="md:col-span-4">
-            <Link href="/">
+            <Link href="/" className="inline-flex items-center gap-2 group">
+              <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/50 transition-all duration-300">
+                <span className="text-white font-bold text-sm">X</span>
+              </div>
               <span className="text-xl font-bold tracking-tight">
                 <span className="text-white">Engine</span>
-                <span className="text-[#FF8C38]">X</span>
-                <span className="text-white/30 text-xs ml-0.5 font-normal"> Solutions</span>
+                <span className="text-white font-black">X</span>
+                <span className="text-neutral-500 text-xs ml-1 font-normal"> Solutions</span>
               </span>
             </Link>
-            <p className="mt-4 text-sm text-white/50 leading-relaxed max-w-sm">
-              EngineX Solutions is a modern technology, AI, custom software, and performance digital marketing agency headquartered in Sulur, Coimbatore, serving high-growth businesses across India.
+            <p className="mt-4 text-sm text-neutral-400 leading-relaxed max-w-sm">
+              EngineX Solutions is a premier technology, custom software, AI automation, and performance digital marketing agency headquartered in Sulur, Coimbatore, serving high-growth companies across India and worldwide.
             </p>
-            <div className="mt-6 flex flex-col gap-1 text-xs text-white/40">
-              <span>GST & MSME Compliant • India</span>
-              <span>100% Client Code & Ad Account Ownership</span>
+            <div className="mt-6 flex flex-col gap-1.5 text-xs text-neutral-500">
+              <span className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                GST &amp; MSME Registered Enterprise • India
+              </span>
+              <span>100% Client Code &amp; Ad Account Ownership</span>
             </div>
           </div>
 
           {/* Dedicated Services Column */}
           <div className="md:col-span-4">
-            <h4 className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase text-xs">
-              Dedicated Services
+            <h4 className="text-xs font-bold text-white mb-4 tracking-wider uppercase">
+              Specialized Services
             </h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2.5">
               {footerLinks.services.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs sm:text-sm text-white/45 hover:text-[#FF8C38] transition-colors duration-200 block py-0.5"
+                    className="text-xs sm:text-sm text-neutral-400 hover:text-white transition-colors duration-200 block py-0.5"
                   >
                     {link.label}
                   </Link>
@@ -71,15 +77,15 @@ export default function Footer() {
 
           {/* Company & Legal */}
           <div className="md:col-span-2">
-            <h4 className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase text-xs">
+            <h4 className="text-xs font-bold text-white mb-4 tracking-wider uppercase">
               Company
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-xs sm:text-sm text-white/45 hover:text-[#FF8C38] transition-colors duration-200"
+                    className="text-xs sm:text-sm text-neutral-400 hover:text-white transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -90,32 +96,32 @@ export default function Footer() {
 
           {/* Contact Column */}
           <div className="md:col-span-2">
-            <h4 className="text-sm font-semibold text-white/90 mb-4 tracking-wide uppercase text-xs">
+            <h4 className="text-xs font-bold text-white mb-4 tracking-wider uppercase">
               Get in Touch
             </h4>
-            <ul className="space-y-3.5 text-xs sm:text-sm text-white/45">
+            <ul className="space-y-3.5 text-xs sm:text-sm text-neutral-400">
               <li className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 mt-0.5 text-[#FF8C38] shrink-0" />
+                <Mail className="w-4 h-4 mt-0.5 text-white shrink-0" />
                 <a
                   href="mailto:pughalvanan231@gmail.com"
-                  className="hover:text-[#FF8C38] transition-colors break-all"
+                  className="hover:text-white transition-colors break-all"
                 >
                   pughalvanan231@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 mt-0.5 text-[#FF8C38] shrink-0" />
-                <a href="tel:+917867050320" className="hover:text-[#FF8C38] transition-colors">
+                <Phone className="w-4 h-4 mt-0.5 text-white shrink-0" />
+                <a href="tel:+917867050320" className="hover:text-white transition-colors">
                   +91 7867050320
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 mt-0.5 text-[#FF8C38] shrink-0" />
+                <MapPin className="w-4 h-4 mt-0.5 text-white shrink-0" />
                 <a
                   href="https://maps.google.com/?q=Sulur,Coimbatore,Tamil+Nadu"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#FF8C38] transition-colors leading-relaxed"
+                  className="hover:text-white transition-colors leading-relaxed"
                 >
                   2/222c Sulur, Coimbatore,<br />Tamil Nadu, 641402, India
                 </a>
@@ -125,8 +131,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-14 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30 text-center sm:text-left">
+        <div className="mt-14 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-neutral-500 text-center sm:text-left">
             &copy; {new Date().getFullYear()} EngineX Solutions. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
@@ -134,7 +140,7 @@ export default function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs text-white/30 hover:text-[#FF8C38] transition-colors"
+                className="text-xs text-neutral-500 hover:text-white transition-colors"
               >
                 {link.label}
               </Link>

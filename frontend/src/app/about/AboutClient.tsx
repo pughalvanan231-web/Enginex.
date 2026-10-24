@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, Eye, Target, Heart, ArrowRight, Code2, Cpu, LineChart, MapPin } from 'lucide-react'
+import { Shield, Eye, Target, Heart, ArrowRight, Code2, Cpu, LineChart, MapPin, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -58,10 +58,13 @@ const operationalPillars = [
 
 export default function AboutClient() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-[#060608] text-white">
       <Header />
-      <div className="pt-32 pb-20">
-        <div className="container-custom">
+      <div className="pt-36 pb-24 relative overflow-hidden">
+        {/* Background Ambient Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="container-custom relative z-10">
           <SectionHeading
             as="h1"
             label="About Us"
@@ -69,30 +72,36 @@ export default function AboutClient() {
             description="EngineX Solutions is an independent technology, software development, AI automation, and digital marketing agency based in Sulur, Coimbatore, Tamil Nadu."
           />
 
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              We founded EngineX Solutions to bridge the gap between complex software engineering and practical business growth. Rather than peddling vanity metrics or one-size-fits-all website templates, we partner with Indian businesses to engineer custom digital platforms, automated workflows, and measurable customer acquisition engines.
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center mb-20"
+          >
+            <p className="text-base sm:text-lg text-neutral-400 leading-relaxed">
+              We founded EngineX Solutions to bridge the gap between complex software engineering and practical business growth. Rather than peddling vanity metrics or one-size-fits-all website templates, we partner with businesses to engineer custom digital platforms, automated workflows, and measurable customer acquisition engines.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Operational Pillars */}
+          {/* Operational Pillars with Card Hover Physics */}
           <div className="grid md:grid-cols-3 gap-6 mb-24">
             {operationalPillars.map((pillar, i) => {
               const Icon = pillar.icon
               return (
                 <motion.div
                   key={pillar.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="card-subtle p-7 hover:border-primary/30 transition-all duration-300"
+                  transition={{ delay: i * 0.1, duration: 0.6 }}
+                  whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                  className="card-elevated p-8 border border-white/10 hover:border-white/30 transition-all duration-300 group"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5 text-primary">
+                  <div className="w-12 h-12 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center mb-6 text-white group-hover:bg-white group-hover:text-black group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.25)] transition-all duration-300">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{pillar.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                  <h3 className="text-xl font-bold text-white mb-2.5">{pillar.title}</h3>
+                  <p className="text-sm text-neutral-400 leading-relaxed">
                     {pillar.description}
                   </p>
                 </motion.div>
@@ -102,7 +111,7 @@ export default function AboutClient() {
 
           {/* Core Values */}
           <div className="mb-24">
-            <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="text-center max-w-2xl mx-auto mb-16">
               <span className="section-label">Our Philosophy</span>
               <h2 className="section-title">Core Operating Principles</h2>
               <p className="section-desc mt-3 mx-auto">
@@ -116,20 +125,21 @@ export default function AboutClient() {
                 return (
                   <motion.div
                     key={value.title}
-                    initial={{ opacity: 0, x: i % 2 === 0 ? -15 : 15 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                    className="card-subtle p-8 flex gap-5 hover:border-primary/30 transition-all"
+                    transition={{ delay: i * 0.08, duration: 0.6 }}
+                    whileHover={{ y: -4 }}
+                    className="card-elevated p-8 flex gap-5 border border-white/10 hover:border-white/30 transition-all group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-primary">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center shrink-0 text-white group-hover:bg-white group-hover:text-black transition-all duration-300">
                       <Icon className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">
+                      <h3 className="text-lg font-bold text-white mb-2">
                         {value.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-sm text-neutral-400 leading-relaxed">
                         {value.description}
                       </p>
                     </div>
@@ -140,50 +150,56 @@ export default function AboutClient() {
           </div>
 
           {/* Leadership & E-E-A-T */}
-          <div className="mb-24 card-subtle p-8 sm:p-12 border border-primary/20 bg-gradient-to-br from-primary/05 via-transparent to-transparent max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-24 card-elevated p-8 sm:p-12 border border-white/15 bg-white/[0.02] max-w-4xl mx-auto relative overflow-hidden backdrop-blur-xl"
+          >
             <span className="section-label">Leadership</span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
               Hands-On Technical Leadership
             </h2>
             <div className="flex flex-col sm:flex-row items-start gap-6">
-              <div className="w-16 h-16 rounded-2xl bg-primary text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-md">
+              <div className="w-16 h-16 rounded-2xl bg-white text-black font-extrabold text-2xl flex items-center justify-center shrink-0 shadow-[0_0_25px_rgba(255,255,255,0.3)]">
                 P
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">
+                <h3 className="text-xl font-bold text-white">
                   Pughalvanan
                 </h3>
-                <div className="text-xs font-semibold text-primary mb-3">
-                  Founder & Principal Systems Engineer
+                <div className="text-xs font-semibold text-neutral-400 mb-3 tracking-wide uppercase">
+                  Founder &amp; Principal Systems Engineer
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                <p className="text-sm text-neutral-300 leading-relaxed mb-6">
                   With deep hands-on expertise spanning full-stack TypeScript architecture, Next.js, cloud systems, and search algorithms, Pughalvanan leads technical strategy and delivery at EngineX Solutions. Every client project receives senior architectural oversight from scoping through production deployment.
                 </p>
-                <div className="flex flex-wrap gap-4 text-xs font-medium text-foreground">
-                  <span className="flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-primary" /> Sulur, Coimbatore, Tamil Nadu
+                <div className="flex flex-wrap gap-6 text-xs font-medium text-neutral-400">
+                  <span className="flex items-center gap-1.5 text-white">
+                    <MapPin className="w-3.5 h-3.5 text-white" /> Sulur, Coimbatore, Tamil Nadu
                   </span>
                   <a
                     href="mailto:pughalvanan231@gmail.com"
-                    className="text-primary hover:underline"
+                    className="text-white hover:underline"
                   >
                     pughalvanan231@gmail.com
                   </a>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* CTA */}
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               Looking for a Reliable Digital Partner?
             </h2>
-            <p className="text-sm sm:text-base text-muted-foreground mb-8">
+            <p className="text-sm sm:text-base text-neutral-400 mb-8 leading-relaxed">
               Let&apos;s evaluate your current technical stack, organic visibility, and customer acquisition channels.
             </p>
             <Link href="/contact">
-              <Button variant="primary" size="lg" className="gap-2 group shadow-lg shadow-primary/20">
+              <Button variant="primary" size="lg" className="gap-2 group shadow-[0_0_25px_rgba(255,255,255,0.25)]">
                 Schedule a Consultation{' '}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>

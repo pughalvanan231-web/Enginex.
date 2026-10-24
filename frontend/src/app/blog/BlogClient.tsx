@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Search, Clock, ArrowRight } from 'lucide-react'
+import { Search, Clock, ArrowRight, ArrowUpRight } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -53,10 +53,8 @@ export default function BlogClient() {
   ])
   const [activeCategory, setActiveCategory] = useState('all')
   const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // Attempt to merge backend categories if online
     api.get('/blog/categories')
       .then((res) => {
         if (Array.isArray(res.data) && res.data.length > 0) {
@@ -67,7 +65,6 @@ export default function BlogClient() {
   }, [])
 
   useEffect(() => {
-    // If user filtered or searched, filter from static articles or fetch from API
     if (activeCategory === 'all' && !search) {
       setBlogs(defaultStaticBlogs)
       return
@@ -86,10 +83,13 @@ export default function BlogClient() {
   }, [activeCategory, search])
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-[#060608] text-white">
       <Header />
-      <div className="pt-32 pb-20">
-        <div className="container-custom">
+      <div className="pt-36 pb-24 relative overflow-hidden">
+        {/* Background Ambience */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/[0.02] rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="container-custom relative z-10">
           <SectionHeading
             as="h1"
             label="Insights & Guides"
@@ -103,8 +103,8 @@ export default function BlogClient() {
                 onClick={() => setActiveCategory('all')}
                 className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                   activeCategory === 'all'
-                    ? 'bg-primary text-primary-foreground shadow-sm'
-                    : 'bg-muted text-muted-foreground hover:text-foreground'
+                    ? 'bg-white text-black font-semibold shadow-[0_0_15px_rgba(255,255,255,0.25)]'
+                    : 'bg-white/[0.04] text-neutral-400 hover:text-white border border-white/10'
                 }`}
               >
                 All Topics ({defaultStaticBlogs.length})
@@ -115,8 +115,8 @@ export default function BlogClient() {
                   onClick={() => setActiveCategory(cat.name)}
                   className={`px-4 py-2 rounded-full text-xs font-medium transition-all ${
                     activeCategory === cat.name
-                      ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'bg-muted text-muted-foreground hover:text-foreground'
+                      ? 'bg-white text-black font-semibold shadow-[0_0_15px_rgba(255,255,255,0.25)]'
+                      : 'bg-white/[0.04] text-neutral-400 hover:text-white border border-white/10'
                   }`}
                 >
                   {cat.name}
@@ -125,7 +125,7 @@ export default function BlogClient() {
             </div>
 
             <div className="relative w-full md:w-72">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
               <Input
                 placeholder="Search articles & guides..."
                 value={search}
@@ -136,14 +136,14 @@ export default function BlogClient() {
           </div>
 
           {blogs.length === 0 ? (
-            <div className="text-center py-20 card-subtle p-12 max-w-lg mx-auto">
-              <p className="text-muted-foreground text-base">No articles matched your filter criteria.</p>
+            <div className="text-center py-20 card-elevated p-12 max-w-lg mx-auto border border-white/10">
+              <p className="text-neutral-400 text-base">No articles matched your filter criteria.</p>
               <button
                 onClick={() => {
                   setActiveCategory('all')
                   setSearch('')
                 }}
-                className="mt-4 text-xs font-medium text-primary hover:underline"
+                className="mt-4 text-xs font-medium text-white hover:underline"
               >
                 Clear all filters
               </button>
@@ -153,41 +153,53 @@ export default function BlogClient() {
               {blogs.map((blog, i) => (
                 <motion.div
                   key={blog.slug}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 25 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: i * 0.06, duration: 0.6 }}
+                  whileHover={{ y: -6 }}
                 >
                   <Link href={`/blog/${blog.slug}`} className="group block h-full">
-                    <div className="card-subtle p-6 h-full flex flex-col justify-between hover:border-primary/40 transition-all duration-300">
+                    <div className="card-elevated p-8 h-full flex flex-col justify-between border border-white/10 hover:border-white/30 transition-all duration-300">
                       <div>
-                        <div className="flex items-center justify-between gap-3 mb-4">
-                          <Badge variant="outline" className="text-xs">
+                        <div className="flex items-center justify-between gap-3 mb-5">
+                          <Badge variant="outline" className="text-[11px] bg-white/[0.04] border-white/15 text-neutral-300">
                             {blog.category}
                           </Badge>
                           {blog.readingTime && (
-                            <span className="text-xs text-muted-foreground flex items-center gap-1">
-                              <Clock className="w-3 h-3 text-primary" />
+                            <span className="text-xs text-neutral-400 flex items-center gap-1.5">
+                              <Clock className="w-3.5 h-3.5 text-neutral-400" />
                               {blog.readingTime} min read
                             </span>
                           )}
                         </div>
 
-                        <h2 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors mb-3 leading-snug">
+                        <h2 className="text-xl font-bold text-white group-hover:text-white transition-colors mb-3 leading-snug">
                           {blog.title}
                         </h2>
 
-                        <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed mb-6">
+                        <p className="text-sm text-neutral-400 line-clamp-3 leading-relaxed mb-6">
                           {blog.excerpt}
                         </p>
                       </div>
 
-                      <div className="pt-4 border-t border-border flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">
-                          {formatDate(blog.publishedAt)}
-                        </span>
-                        <span className="text-xs font-semibold text-primary inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
-                          Read Guide <ArrowRight className="w-3 h-3" />
+                      <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-white/10 border border-white/15 flex items-center justify-center text-xs font-bold text-white">
+                            {blog.author.name[0]}
+                          </div>
+                          <div>
+                            <div className="text-xs font-semibold text-white">
+                              {blog.author.name}
+                            </div>
+                            <div className="text-[10px] text-neutral-500">
+                              {formatDate(blog.publishedAt)}
+                            </div>
+                          </div>
+                        </div>
+
+                        <span className="text-xs font-medium text-white flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                          Read <ArrowRight className="w-3.5 h-3.5" />
                         </span>
                       </div>
                     </div>

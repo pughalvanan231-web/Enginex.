@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
+import { Menu, X, ArrowRight, Sparkles } from 'lucide-react'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -18,103 +18,139 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  })
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60)
+    const handleScroll = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
-        scrolled
-          ? 'bg-white/90 backdrop-blur-lg shadow-[0_1px_0_rgba(0,0,0,0.04)]'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="container-custom flex items-center justify-between h-16 md:h-20">
-        <Link href="/" className="relative z-10">
-          <span className="text-xl md:text-2xl font-bold tracking-tight">
-            <span className="text-[#1A1A1A]">Engine</span>
-            <span className="text-[#FF8C38]">X</span>
-            <span className="text-[#B0B0B0] text-xs md:text-sm ml-0.5 font-normal">.solution</span>
-          </span>
-        </Link>
+    <>
+      {/* Global Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-neutral-600 via-white to-neutral-400 z-[60] origin-left"
+        style={{ scaleX }}
+      />
 
-        <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+          scrolled
+            ? 'bg-[#060608]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-3'
+            : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="container-custom flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="relative z-10 group flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center group-hover:border-white/50 transition-all duration-300">
+              <span className="text-white font-bold text-sm">X</span>
+            </div>
+            <span className="text-lg md:text-xl font-bold tracking-tight">
+              <span className="text-white">Engine</span>
+              <span className="text-white font-black">X</span>
+              <span className="text-neutral-500 text-xs ml-1 font-normal tracking-wide">.solutions</span>
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-1 p-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="px-4 py-1.5 rounded-full text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/[0.08] transition-all duration-300 relative group"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Action CTAs */}
+          <div className="hidden lg:flex items-center gap-3">
             <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-500 ease-out relative group"
+              href="/contact?quote=true"
+              className="px-4 py-2 rounded-full border border-white/15 text-neutral-300 hover:text-white hover:border-white/40 hover:bg-white/[0.05] text-xs font-medium transition-all duration-300"
             >
-              {link.label}
-              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-[#FF8C38] transition-all duration-500 ease-out group-hover:w-full" />
+              Get Quote
             </Link>
-          ))}
-        </nav>
+            <Link
+              href="/contact"
+              className="px-5 py-2 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-semibold shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_28px_rgba(255,255,255,0.35)] transition-all duration-300 flex items-center gap-1.5 group"
+            >
+              <span>Book Call</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
-            href="/contact"
-            className="px-5 py-2.5 rounded-full bg-[#FF8C38] text-white text-sm font-medium transition-all duration-500 ease-out hover:bg-[#E67A2E] hover:shadow-lg hover:shadow-[#FF8C38]/20"
+          {/* Mobile Menu Toggle */}
+          <button
+            className="lg:hidden relative z-10 text-white p-2 rounded-lg bg-white/[0.05] border border-white/10"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
-            Book Consultation
-          </Link>
-          <Link
-            href="/contact?quote=true"
-            className="px-5 py-2.5 rounded-full border border-[#E0E0E0] text-[#1A1A1A] text-sm font-medium transition-all duration-500 ease-out hover:border-[#FF8C38]/30 hover:text-[#FF8C38] hover:bg-[#FF8C38]/03"
-          >
-            Get Quote
-          </Link>
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
 
-        <button
-          className="lg:hidden relative z-10 text-[#1A1A1A] p-2"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
+        {/* Mobile Navigation Drawer */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-0 top-0 bg-[#060608]/95 backdrop-blur-2xl z-40 lg:hidden flex flex-col justify-center items-center px-6"
+            >
+              <div className="w-full max-w-sm flex flex-col items-center gap-6">
+                <nav className="flex flex-col items-center gap-4 w-full">
+                  {navLinks.map((link, i) => (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05, duration: 0.4 }}
+                      className="w-full text-center"
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block py-2 text-xl font-medium text-neutral-300 hover:text-white transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-0 bg-white/98 backdrop-blur-2xl z-0 lg:hidden"
-          >
-            <nav className="flex flex-col items-center justify-center h-full gap-6">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
-                  onClick={() => setMobileOpen(false)}
-                  className="text-2xl text-[#1A1A1A] hover:text-[#FF8C38] transition-colors"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
-              <div className="flex flex-col gap-3 mt-6">
-                <a href="/contact" onClick={() => setMobileOpen(false)}
-                  className="px-8 py-3 rounded-full bg-[#FF8C38] text-white text-sm font-medium text-center">
-                  Book Consultation
-                </a>
-                <a href="/contact?quote=true" onClick={() => setMobileOpen(false)}
-                  className="px-8 py-3 rounded-full border border-[#E0E0E0] text-[#1A1A1A] text-sm font-medium text-center">
-                  Get Quote
-                </a>
+                <div className="w-full pt-6 border-t border-white/10 flex flex-col gap-3">
+                  <Link
+                    href="/contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full py-3.5 rounded-full bg-white text-black font-semibold text-sm text-center shadow-[0_0_25px_rgba(255,255,255,0.2)]"
+                  >
+                    Book Consultation
+                  </Link>
+                  <Link
+                    href="/contact?quote=true"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full py-3.5 rounded-full border border-white/20 text-white font-medium text-sm text-center hover:bg-white/[0.05]"
+                  >
+                    Get Instant Quote
+                  </Link>
+                </div>
               </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   )
 }

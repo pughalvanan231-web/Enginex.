@@ -4,16 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-all duration-500 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF8C38]/30 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
   {
     variants: {
       variant: {
-        primary: "bg-[#FF8C38] text-white hover:bg-[#E67A2E] hover:shadow-lg hover:shadow-[#FF8C38]/20",
-        secondary: "border border-[#E0E0E0] text-[#1A1A1A] hover:border-[#FF8C38]/30 hover:text-[#FF8C38] hover:bg-[#FF8C38]/03",
-        ghost: "text-[#6B6B6B] hover:text-[#1A1A1A] hover:bg-[#F5F5F5]",
-        outline: "border border-[#FF8C38]/30 text-[#FF8C38] hover:bg-[#FF8C38]/08",
-        destructive: "bg-red-500 text-white hover:bg-red-600",
-        light: "bg-white text-[#1A1A1A] border border-[#E0E0E0] hover:shadow-md hover:shadow-[#FF8C38]/10",
+        primary: "bg-white text-black hover:bg-neutral-200 hover:shadow-[0_0_24px_rgba(255,255,255,0.25)] shadow-[0_2px_10px_rgba(255,255,255,0.1)] font-semibold",
+        secondary: "bg-white/[0.04] border border-white/15 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-md",
+        ghost: "text-neutral-400 hover:text-white hover:bg-white/[0.06]",
+        outline: "border border-white/20 text-white hover:bg-white hover:text-black hover:border-white",
+        destructive: "bg-red-500/90 text-white hover:bg-red-600",
+        light: "bg-white text-black border border-neutral-200 hover:bg-neutral-100",
       },
       size: {
         sm: "h-9 px-4 text-xs",
