@@ -22,6 +22,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import SectionHeading from '@/components/SectionHeading'
@@ -129,15 +130,29 @@ export default function ServicesClient() {
                   </div>
 
                   <div className="flex-1 w-full max-w-md">
-                    <div className="aspect-square bg-gradient-to-br from-white/[0.06] via-white/[0.02] to-transparent rounded-2xl flex flex-col items-center justify-center p-8 text-center border border-white/10 relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
-                      <Icon className="w-24 h-24 text-white/30 mb-4 group-hover:scale-110 group-hover:text-white/50 transition-all duration-300" />
-                      <div className="text-xs font-bold text-white uppercase tracking-widest relative z-10">
-                        {service.title}
+                    <div className="aspect-square rounded-2xl relative overflow-hidden border border-white/10 group shadow-xl bg-neutral-950">
+                      <Image
+                        src={service.image || `/images/services/${service.slug}.jpg`}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 420px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/20 pointer-events-none" />
+
+                      <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-[11px] font-semibold shadow-sm">
+                        <Icon className="w-3.5 h-3.5 text-white" />
+                        <span>{service.serviceType}</span>
                       </div>
-                      <p className="text-xs text-neutral-400 mt-2 line-clamp-2 relative z-10 max-w-xs">
-                        {service.deliverables[0]}
-                      </p>
+
+                      <div className="absolute bottom-4 inset-x-4 z-10 p-4 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 text-white">
+                        <div className="text-xs font-bold text-white uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                          <span>{service.title}</span>
+                        </div>
+                        <p className="text-xs text-neutral-300 line-clamp-2">
+                          {service.deliverables[0]}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

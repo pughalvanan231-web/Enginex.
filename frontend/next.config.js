@@ -5,6 +5,7 @@ const nextConfig = {
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'https', hostname: 'enginex-api.onrender.com' },
       { protocol: 'https', hostname: 'i.pravatar.cc' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
     ],
     formats: ['image/avif', 'image/webp'],
   },

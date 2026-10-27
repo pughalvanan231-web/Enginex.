@@ -164,6 +164,7 @@ export function getServiceSchema(service: ServiceItem) {
     '@id': `${SITE_URL}/services/${service.slug}#service`,
     name: service.title,
     description: service.shortDescription,
+    image: `${SITE_URL}${service.image}`,
     provider: {
       '@type': 'Organization',
       name: 'EngineX Solutions',

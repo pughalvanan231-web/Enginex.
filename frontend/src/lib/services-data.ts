@@ -7,6 +7,7 @@ export interface ServiceItem {
   slug: string
   icon: string
   title: string
+  image: string
   shortDescription: string
   detail: string
   targetAudience: string
@@ -27,6 +28,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'digital-marketing',
     icon: 'TrendingUp',
     title: 'Digital Marketing Services',
+    image: '/images/services/digital-marketing.jpg',
     shortDescription: 'Integrated multi-channel digital marketing solutions designed to expand market reach, build brand equity, and generate verified sales enquiries across India.',
     detail: 'EngineX Solutions provides full-funnel digital marketing services tailored for growing Indian enterprises, B2B companies, and consumer brands. Rather than treating marketing as isolated tactics, we synchronize organic search, paid acquisition, social engagement, and conversion rate optimization into a unified growth engine. Every initiative is backed by transparent analytics, structured experimentation, and commercial clarity.',
     targetAudience: 'Indian MSMEs, B2B manufacturers, healthcare providers, educational institutions, and emerging e-commerce brands seeking measurable customer acquisition.',
@@ -114,6 +116,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'seo',
     icon: 'Search',
     title: 'Search Engine Optimization (SEO)',
+    image: '/images/services/seo.jpg',
     shortDescription: 'Technical, content-led, and authoritative SEO services engineered to capture high-intent organic Google searches and build enduring digital market share.',
     detail: 'EngineX Solutions delivers ethical, white-hat Search Engine Optimization services focused on real commercial intent. Rather than chasing irrelevant vanity traffic, we engineer your technical infrastructure, page performance, topical content authority, and on-page signals so search engines recognize your website as the definitive resource in your industry. Every recommendation adheres strictly to Google Search Essentials and Webmaster Guidelines.',
     targetAudience: 'Businesses aiming to reduce long-term paid acquisition costs, dominate industry keyword searches, and build sustainable organic pipeline in India and abroad.',
@@ -201,6 +204,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'google-ads',
     icon: 'Target',
     title: 'Google Ads Management',
+    image: '/images/services/google-ads.jpg',
     shortDescription: 'High-intent Pay-Per-Click (PPC) and Performance Max advertising campaigns engineered to capture ready-to-buy prospects and maximize return on ad spend.',
     detail: 'EngineX Solutions manages performance-driven Google Ads campaigns focused on profitable commercial acquisition. We design high-converting search architectures, tightly themed ad groups, strategic negative keyword filters, and server-side conversion tracking. By focusing on conversion rate economics rather than vanity clicks, we ensure your ad budget is directed exclusively at prospects with active buying intent.',
     targetAudience: 'Companies requiring immediate qualified leads, service firms competing in high-value B2B niches, and e-commerce stores scaling revenue.',
@@ -288,6 +292,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'meta-ads',
     icon: 'Share2',
     title: 'Meta Ads Management',
+    image: '/images/services/meta-ads.jpg',
     shortDescription: 'Performance-driven Facebook and Instagram advertising campaigns built on creative testing, granular audience segmentation, and Conversions API integration.',
     detail: 'EngineX Solutions develops high-impact Meta advertising campaigns that capture customer interest and drive scalable acquisition on Facebook and Instagram. We combine creative storytelling, engaging video hooks, custom audience modeling, and server-side Conversions API (CAPI) infrastructure. By treating creative assets as the primary targeting lever, we help brands scale reliably while maintaining sustainable customer acquisition economics.',
     targetAudience: 'Direct-to-consumer (D2C) brands, education and training providers, real estate developers, and consumer-facing service businesses across India.',
@@ -375,6 +380,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'social-media-marketing',
     icon: 'Users',
     title: 'Social Media Marketing',
+    image: '/images/services/social-media-marketing.jpg',
     shortDescription: 'Organic social media management and content distribution strategies that build authentic brand authority, community engagement, and long-term customer loyalty.',
     detail: 'EngineX Solutions provides strategic social media management across LinkedIn, Instagram, and X (Twitter) for businesses looking to build lasting credibility. We replace aimless daily posting with structured content pillars, educational carousels, insightful founder-led posts, and community interaction. Our focus is turning passive followers into active brand advocates and qualified commercial relationships.',
     targetAudience: 'B2B enterprise firms, tech startups, executive founders, and service organizations aiming to elevate brand stature and organic social authority.',
@@ -462,6 +468,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'website-development',
     icon: 'Globe',
     title: 'Website Development Services',
+    image: '/images/services/website-development.jpg',
     shortDescription: 'High-converting, lightning-fast websites and web applications built with Next.js, React, and modern full-stack architectures engineered for sub-second page loads.',
     detail: 'EngineX Solutions designs and engineers enterprise-grade websites and web applications tailored for speed, search visibility, and conversion. Built on modern tech stacks including Next.js, React, TypeScript, and Tailwind CSS, our digital platforms load instantly, display flawlessly on mobile devices, and provide intuitive administrative control. We treat your website not as a digital brochure, but as your primary revenue engine.',
     targetAudience: 'Growing enterprises, technology startups, professional service firms, and industrial businesses that require a world-class, fast digital presence.',
@@ -549,6 +556,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'mobile-app-development',
     icon: 'Smartphone',
     title: 'Mobile App Development',
+    image: '/images/services/mobile-app-development.jpg',
     shortDescription: 'High-performance native and cross-platform mobile applications for iOS and Android built with React Native and Flutter for intuitive user experiences.',
     detail: 'EngineX Solutions engineers robust, user-centric mobile applications that deliver smooth native performance across iOS and Android devices. Leveraging React Native and Flutter, we accelerate time-to-market while maintaining 60fps responsiveness, platform-specific UI patterns, and resilient offline capabilities. From consumer utilities to B2B enterprise field applications, we handle the entire product lifecycle from scoping to App Store deployment.',
     targetAudience: 'Enterprises seeking internal workflow mobility, startups launching consumer mobile products, and businesses digitizing customer loyalty.',
@@ -636,6 +644,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'video-production',
     icon: 'Video',
     title: 'Video Production & Editing',
+    image: '/images/services/video-production.jpg',
     shortDescription: 'Cinematic corporate videos, customer case studies, product explainers, and high-retention social media reels engineered to drive audience engagement and commercial action.',
     detail: 'EngineX Solutions provides end-to-end video production and high-impact commercial video editing for businesses looking to tell their story compellingly. From scripting corporate brand narratives and filming professional customer testimonials to cutting dynamic social media reels and software product demos, we ensure your visual content retains viewer attention, communicates value clearly, and drives tangible viewer action.',
     targetAudience: 'B2B companies seeking professional corporate videos, startups launching products, and brands expanding social media video reach.',
@@ -723,6 +732,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'branding',
     icon: 'Palette',
     title: 'Branding & Logo Design',
+    image: '/images/services/branding.jpg',
     shortDescription: 'Memorable brand identity design, logo creation, typography systems, and creative visual guidelines that inspire trust and differentiate your business in competitive markets.',
     detail: 'EngineX Solutions crafts distinct, cohesive brand identities that resonate with your target market and command authority. Great branding extends far beyond a logo mark—it is the unified visual language, typography, color harmony, and messaging framework that shapes how prospects perceive your business value. We engineer timeless brand assets ready for physical collateral, web platforms, and digital campaigns.',
     targetAudience: 'New business ventures seeking an iconic identity, and established companies pursuing a modern rebrand to reflect expanded capabilities.',
@@ -810,6 +820,7 @@ export const servicesList: ServiceItem[] = [
     slug: 'ai-automation',
     icon: 'Brain',
     title: 'AI Automation & Custom Software',
+    image: '/images/services/ai-automation.jpg',
     shortDescription: 'Custom AI agent integrations, intelligent workflow automation, and bespoke software solutions built to eliminate manual operational waste and accelerate enterprise scale.',
     detail: 'EngineX Solutions develops practical artificial intelligence integrations, automated workflow pipelines, and bespoke enterprise software systems. Rather than hyping theoretical concepts, we focus on high-ROI business applications: private retrieval-augmented generation (RAG) agents grounded in your proprietary documents, automated data extraction, CRM-ERP synchronization, and custom web backends that replace error-prone spreadsheets with secure, deterministic software.',
     targetAudience: 'Growing enterprises, manufacturing units, logistics firms, and service agencies looking to reduce operational friction and manual overhead.',

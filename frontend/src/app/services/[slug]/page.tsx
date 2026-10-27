@@ -48,11 +48,20 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
       url: canonicalUrl,
       type: 'website',
       siteName: 'EngineX Solutions',
+      images: [
+        {
+          url: `${SITE_URL}${service.image}`,
+          width: 1200,
+          height: 800,
+          alt: service.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: service.metaTitle,
       description: service.metaDescription,
+      images: [`${SITE_URL}${service.image}`],
     },
   }
 }

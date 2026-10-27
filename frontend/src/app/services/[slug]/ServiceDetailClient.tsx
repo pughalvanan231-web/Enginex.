@@ -28,6 +28,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Button } from '@/components/ui/button'
@@ -129,21 +130,50 @@ export default function ServiceDetailClient({ service, relatedServices }: Servic
               </div>
             </div>
 
-            <div className="flex-1 card-subtle p-8 lg:p-10 w-full">
-              <div className="aspect-square bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-2xl flex flex-col items-center justify-center relative p-8 border border-primary/20">
-                <Icon className="w-28 h-28 text-primary/30 mb-4" />
-                <div className="text-center">
-                  <span className="text-xs uppercase tracking-widest text-primary font-bold">
-                    Engineering Excellence
-                  </span>
-                  <p className="text-sm font-semibold text-foreground mt-1 max-w-xs mx-auto">
-                    Built for speed, commercial accountability, and compounding business growth.
-                  </p>
+            <div className="flex-1 card-subtle p-4 sm:p-6 lg:p-7 w-full max-w-2xl">
+              <div className="aspect-square rounded-2xl relative overflow-hidden border border-border/80 group shadow-2xl bg-neutral-900">
+                <Image
+                  src={service.image || `/images/services/${service.slug}.jpg`}
+                  alt={service.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+
+                {/* Dark gradient overlay for contrast and sleek finish */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/30 pointer-events-none" />
+
+                {/* Top Badge: Service Category & Type */}
+                <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold shadow-lg">
+                  <Icon className="w-3.5 h-3.5 text-white" />
+                  <span>{service.serviceType}</span>
                 </div>
 
-                <div className="mt-6 w-full p-3.5 rounded-xl bg-white/95 backdrop-blur-sm border border-border text-xs text-muted-foreground flex items-center gap-3 shadow-sm">
-                  <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-                  <span>White-hat, transparent execution. 100% client code and account ownership.</span>
+                {/* Top Right: Verified Indicator */}
+                <div className="absolute top-4 right-4 z-10 hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[11px] font-medium shadow-lg">
+                  <Sparkles className="w-3 h-3 text-amber-400" />
+                  <span>EngineX Delivery</span>
+                </div>
+
+                {/* Bottom Overlaid Card: Engineering Excellence & Trust Guarantee */}
+                <div className="absolute bottom-4 inset-x-4 z-10 p-4 sm:p-5 rounded-xl bg-black/80 backdrop-blur-md border border-white/15 text-white shadow-2xl">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[11px] uppercase tracking-widest text-neutral-300 font-bold">
+                      Engineering Excellence
+                    </span>
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/15">
+                      Production Ready
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-semibold text-white mb-3 leading-snug">
+                    Built for speed, commercial accountability, and compounding business growth.
+                  </p>
+
+                  <div className="pt-2.5 border-t border-white/10 flex items-center gap-2.5 text-xs text-neutral-300">
+                    <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="line-clamp-1">White-hat, transparent execution. 100% client code and account ownership.</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -341,10 +371,20 @@ export default function ServiceDetailClient({ service, relatedServices }: Servic
                     <Link
                       key={rel.slug}
                       href={`/services/${rel.slug}`}
-                      className="card-subtle p-5 group hover:border-primary/40 transition-all block"
+                      className="card-subtle p-4 group hover:border-primary/40 transition-all block overflow-hidden rounded-2xl"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary group-hover:text-white transition-colors">
-                        <RelIcon className="w-4 h-4 text-primary group-hover:text-white transition-colors" />
+                      <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-3 bg-neutral-900 border border-border/50">
+                        <Image
+                          src={rel.image || `/images/services/${rel.slug}.jpg`}
+                          alt={rel.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 25vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute bottom-2 left-2 z-10 w-7 h-7 rounded-md bg-black/70 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white">
+                          <RelIcon className="w-3.5 h-3.5" />
+                        </div>
                       </div>
                       <h3 className="text-sm font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                         {rel.title}
